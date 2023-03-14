@@ -1,0 +1,13 @@
+Parsing FASTA files: shorturl.at/fvCU2
+
+Codon chart: https://cdn.kastatic.org/ka-perseus-images/f5de6355003ee322782b26404ef0733a1d1a61b0.png
+Codon abbreviations: https://people.mbi.ucla.edu/sumchan/codon_table.html
+
+Samples for testing (chlorophyll synthase):
+Oryza sativa: https://www.ncbi.nlm.nih.gov/nuccore/EF432576.1
+Arabidopsis thaliana: https://www.ncbi.nlm.nih.gov/nuccore/AB021316.1
+    -37 IS THE END OF THE START CODON.
+    -1645 IS THE END OF THE STOP CODON.
+    -CDS IS 535 CODONS LONG
+    -Ending of codon seq is LPFSG
+    -Right UTR: TAACTGTTATTAAAGAAATCTAATGGAAGTTTTTGCAGCTCCTTATTCACCAGCAACCTCAGACAAGTGTAGGTTATTAATCTGGTTTATTCTCACCGAAGAAAGAGCTTTGCCGAGTAAAAGATCTGGAGTTTGTGGATTCATCTAAAAAACCGATGAAACAAAGAACTTTTGCGTAGATAAAAGGACAACATCCACTGTAAATCCAAAGGAGATATATTGTTATTCATTTTTCCCTGTGTACAGTTCACTCTCTATGAGAAATTGAATATCAGTTTTCCCCACT
