@@ -13,15 +13,14 @@
 # Goal 7: Generate the horizontal bar graphs for visualization.
 # Goal end: Make a sample page with an example showing how to use it with pictures.
 
-from pprint import pprint
 from SequenceClass import Sequence
 
 
-def comparer(seq1, seq2):
-    """Compares the two given sequences. Return differences between the two."""
-    # Maybe use zip function?
-    # pprint(list(zip(first_seq, second_seq)))
-    pass
+# def comparer(seq1, seq2):
+#     """Compares the two given sequences. Return differences between the two."""
+#     # Maybe use zip function?
+#     # pprint(list(zip(first_seq, second_seq)))
+#     pass
 
 
 main_file = "Testing Sequences/Oryza_sativa.fasta"
@@ -42,4 +41,4 @@ second_seq.id_retrieve()
 second_seq.seq_retrieve()
 second_seq.find_start_stop()
 
-comparer(main_seq.codingSeq, second_seq.codingSeq)
+# comparer(main_seq.codingSeq, second_seq.codingSeq)
