@@ -14,6 +14,7 @@
 # Goal end: Make a sample page with an example showing how to use it with pictures.
 
 from SequenceClass import Sequence
+from App import App
 
 
 # def comparer(seq1, seq2):
