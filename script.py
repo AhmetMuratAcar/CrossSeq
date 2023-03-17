@@ -43,3 +43,6 @@ second_seq.seq_retrieve()
 second_seq.find_start_stop()
 
 # comparer(main_seq.codingSeq, second_seq.codingSeq)
+
+# screen = App()
+# screen.mainloop()
