@@ -1,4 +1,3 @@
-import tkinter
 import customtkinter
 import webbrowser
 
@@ -21,34 +20,35 @@ def submission():
     print("joe")
 
 
+class TextFrame(customtkinter.CTkScrollableFrame):
+    """Frame class containing the input boxes."""
+    def __init__(self, master, **kwargs):
+        super().__init__(master, **kwargs)
+        self.text_boxes = []
+
+        # Main seq entry box
+        self.mainSeq = customtkinter.CTkTextbox(self)
+        self.mainSeq.pack(padx=(20, 20), pady=(20, 20), side="top", fill="both", expand="true")
+
+    def new_textbox(self):
+        """Creates a new textbox below the previous textbox."""
+        new_seq_box = customtkinter.CTkTextbox(self)
+        new_seq_box.pack(padx=(20, 20), pady=(20, 20), side="top", fill="both")
+        self.text_boxes.append(new_seq_box)
+
+
 class App(customtkinter.CTk):
+    """Class that contains the buttons and functionality of the GUI."""
     def __init__(self):
         super().__init__()
-
         self.title("DNA Comparer")
-        # self.geometry(f"{1400}x{880}")
 
-        # Theme changing menu. Position this in the top right.
-        self.appearance_mode_menu = customtkinter.CTkOptionMenu(self,
-                                                                values=["System", "Dark", "Light"],
-                                                                fg_color=("gray90", "gray20"),
-                                                                button_color=("gray90", "gray20"),
-                                                                button_hover_color=("gray75", "gray28"),
-                                                                text_color=("gray10", "gray90"),
-                                                                anchor="center",
-                                                                command=change_appearance_mode_event)
-        self.appearance_mode_menu.grid(row=2, column=1, padx=20, sticky="E")
-        # self.appearance_mode_menu.place(rely=1.0, relx=1.0, anchor="e")
+        self.my_frame = TextFrame(master=self, width=700, height=400, corner_radius=0, fg_color="transparent")
+        self.my_frame.pack(side="left", fill="both", expand="true")
 
-        # Instruction hyperlink button
-        self.instruction_link_button = customtkinter.CTkButton(self,
-                                                               text="Instructions and Examples",
-                                                               command=instruction_callback)
-        self.instruction_link_button.grid(row=0, column=0, padx=20, pady=10)
-
-        # Text entry box
-        self.entry = customtkinter.CTkEntry(self, placeholder_text="Enter your main sequence")
-        self.entry.grid(row=1, column=0, columnspan=3, padx=(20, 20), pady=(20, 20), sticky="wens")
+        # Button for creating a textbox for a new sequence
+        self.newSeqBox = customtkinter.CTkButton(self, text="New Sequence", command=self.new_textbox_call)
+        self.newSeqBox.pack(padx=20, pady=(20, 10))
 
         # Submission button
         self.submitButton = customtkinter.CTkButton(self,
@@ -57,9 +57,29 @@ class App(customtkinter.CTk):
                                                     text_color=("gray10", "gray90"),
                                                     text="Submit",
                                                     command=submission)
-        self.submitButton.grid(row=2, column=0, padx=20, pady=10, sticky="w")
+        self.submitButton.pack(padx=20, pady=10)
+
+        # Instruction hyperlink button
+        self.instruction_link_button = customtkinter.CTkButton(self,
+                                                               text="Instructions and Examples",
+                                                               command=instruction_callback)
+        self.instruction_link_button.pack(padx=20, pady=10)
+
+        # Theme changing menu
+        self.appearance_mode_menu = customtkinter.CTkOptionMenu(self,
+                                                                values=["System", "Dark", "Light"],
+                                                                fg_color=("gray90", "gray20"),
+                                                                button_color=("gray90", "gray20"),
+                                                                button_hover_color=("gray75", "gray28"),
+                                                                text_color=("gray10", "gray90"),
+                                                                anchor="center",
+                                                                command=change_appearance_mode_event)
+        self.appearance_mode_menu.pack(padx=20, pady=10)
+
+    def new_textbox_call(self):
+        """Calls function in the Frame class that creates a new textbox below the previous textbox."""
+        self.my_frame.new_textbox()
 
 
-if __name__ == "__main__":
-    app = App()
-    app.mainloop()
+app = App()
+app.mainloop()
