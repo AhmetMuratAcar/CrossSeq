@@ -37,12 +37,12 @@ second_seq = Sequence()
 # main_seq.find_start_stop()
 
 # Second seq calls
-second_seq.parse_fasta(second_file)
-second_seq.id_retrieve()
-second_seq.seq_retrieve()
-second_seq.find_start_stop()
+# second_seq.parse_fasta(second_file)
+# second_seq.id_retrieve()
+# second_seq.seq_retrieve()
+# second_seq.find_start_stop()
 
 # comparer(main_seq.codingSeq, second_seq.codingSeq)
 
-# screen = App()
-# screen.mainloop()
+screen = App()
+screen.mainloop()
