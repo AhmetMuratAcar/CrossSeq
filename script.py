@@ -3,15 +3,7 @@
 # Different: red
 # Same: green
 # Same codon encoded by different nucleotides: yellow
-#
-# Goal 1: Write a program that returns the differences between two FASTA sequences.
-# Goal 2: Grab the names of the sequences from the FASTA inputs.
-# Goal 3: Determine if you are going to make this into an application or a website.
-# Goal 4: Figure out how to obtain the inputs of the text areas when submit button is pressed.
-# Goal 5: Figure out how to highlight according to the color key.
-# Goal 6: Make a button that when pressed creates a section for another sequence. All sequences will be compared to 1st.
-# Goal 7: Generate the horizontal bar graphs for visualization.
-# Goal end: Make a sample page with an example showing how to use it with pictures.
+
 
 from SequenceClass import Sequence
 from App import App

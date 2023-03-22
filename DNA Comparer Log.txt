@@ -1,0 +1,17 @@
+		    -----TO DO-----
+* [DONE] Implement functionality to the delete buttons.
+* [DONE] Implement display functionality to seq list textbox.
+* Implement functionality to the submit button.
+* Code backend for displaying highlighted text.
+* Code front end for displaying compared results.
+* Implement jump functionality for seq list labels.
+* Implement label renaming and auto-renaming from FASTA seq.
+* Update ReadMe with documentation.
+* Figure out how to implement graph functionality (???????).
+
+Changes since last push March/21 - March/22 2023
+* Completely refactored the frame creation class system
+to make it more readable and extensible.
+* Delete buttons now have functionality.
+* Labels now update when sequence frames are deleted.
+* Light and dark mode trash icons.

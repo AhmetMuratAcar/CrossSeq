@@ -2,127 +2,106 @@ import customtkinter
 import webbrowser
 from PIL import Image
 
+DEL_IMAGE = customtkinter.CTkImage(light_image=Image.open("Images/trash_(light_mode).png"),
+                                   dark_image=Image.open("Images/trash_(dark_mode).png"),
+                                   size=(30, 30))
+
 customtkinter.set_appearance_mode("System")
 customtkinter.set_default_color_theme("dark-blue")
 
 
-def instruction_callback():
-    """Opens README of GitHub repo."""
-    webbrowser.open_new("https://github.com/AhmetMuratAcar/DNA-Comparer/blob/master/README.md")
+class MainSeq:
+    """Class that constructs the main sequence frame."""
+    def __init__(self, master):
+        # Frame for main sequence
+        self.main_seq_frame = customtkinter.CTkFrame(master=master, corner_radius=0, fg_color="transparent")
+        self.main_seq_frame.pack(side="top", fill="x", expand="true")
 
+        # Label for main sequence
+        self.main_seq_label = customtkinter.CTkLabel(master=self.main_seq_frame, text="Main Sequence", padx=20)
+        self.main_seq_label.pack(anchor="w")
 
-def change_appearance_mode_event(new_scaling: str):
-    """Changes the theme of the app (Light, Dark, System)."""
-    customtkinter.set_appearance_mode(new_scaling)
+        # Text box
+        self.main_seq_text = customtkinter.CTkTextbox(self.main_seq_frame)
+        self.main_seq_text.pack(padx=(20, 0), pady=(0, 10), side="left", anchor="w", fill="both", expand="true")
 
-
-def submission():
-    # Should check if the s
-    print("joe")
-
-
-class TextFrame(customtkinter.CTkScrollableFrame):
-    """Frame class containing the input boxes."""
-
-    def __init__(self, master, **kwargs):
-        super().__init__(master, **kwargs)
-        self.new_frame = None
-        self.new_label = None
-        self.new_seq_box = None
-        self.new_del_button = None
-
-        self.text_boxes = []
-        self.count = len(self.text_boxes) + 1
-
-        # Image for the delete buttons
-        self.trash_image = customtkinter.CTkImage(light_image=Image.open("Images/trash.png"),
-                                                  dark_image=Image.open("Images/trash.png"),
-                                                  size=(30, 30))
-
-        # Frame for the main sequence
-        self.main_seq_frame = customtkinter.CTkFrame(master=self, corner_radius=0, fg_color="transparent")
-        self.main_seq_frame.pack(side="top", fill="x")
-
-        # Main seq label
-        self.main_label = customtkinter.CTkLabel(master=self.main_seq_frame, text="Main Sequence", padx=20)
-        self.main_label.pack(anchor="w")
-
-        # Main seq entry box
-        self.mainSeq = customtkinter.CTkTextbox(self.main_seq_frame)
-        self.mainSeq.pack(padx=(20, 0), pady=(0, 10), side="left", anchor="w", fill="both", expand="true")
-
-        # Main seq delete button
+        # Delete button
         self.main_del_button = customtkinter.CTkButton(master=self.main_seq_frame,
-                                                       image=self.trash_image,
+                                                       image=DEL_IMAGE,
                                                        text="",
-                                                       command=self.delete,
+                                                       command=self.main_seq_delete,
                                                        height=20,
                                                        width=20)
         self.main_del_button.pack(side="left", padx=10)
 
-    def new_textbox(self):
-        """Creates a new label and textbox below the previous textbox."""
-        # Frame for new text box
-        self.new_frame = customtkinter.CTkFrame(master=self, corner_radius=0, fg_color="transparent")
-        self.new_frame.pack(side="top", fill="x")
+    def main_seq_delete(self):
+        """Clears the main sequence textbox."""
+        self.main_seq_text.delete('0.0', "end")
 
-        # Label
-        self.new_label = customtkinter.CTkLabel(master=self.new_frame, text=f"Sequence #{self.count}", padx=20)
+
+class SeqFrame:
+    """Class that constructs the sequence frames after main sequence."""
+    def __init__(self, master, count):
+        # Frame for sequence
+        self.new_text_frame = customtkinter.CTkFrame(master=master, corner_radius=0, fg_color="transparent")
+        self.new_text_frame.pack(side="top", fill="x", expand="true")
+
+        # Label for sequence
+        self.seq_name = f"Sequence #{count}"
+        self.new_label = customtkinter.CTkLabel(master=self.new_text_frame, text=self.seq_name, padx=20)
         self.new_label.pack(anchor="w")
 
         # Text box
-        self.new_seq_box = customtkinter.CTkTextbox(master=self.new_frame)
+        self.new_seq_box = customtkinter.CTkTextbox(master=self.new_text_frame)
         self.new_seq_box.pack(padx=(20, 0), pady=(0, 10), side="left", anchor="w", fill="both", expand="true")
-        self.text_boxes.append(self.new_seq_box)
 
         # Delete button
-        self.new_del_button = customtkinter.CTkButton(master=self.new_frame,
-                                                      image=self.trash_image,
+        self.new_del_button = customtkinter.CTkButton(master=self.new_text_frame,
+                                                      image=DEL_IMAGE,
                                                       text="",
-                                                      command=self.delete,
+                                                      command=self.remove_frame,
                                                       height=20,
                                                       width=20)
         self.new_del_button.pack(side="left", padx=10)
 
-        self.count += 1
+    def remove_frame(self):
+        """If text present in the textbox, delete text. Else, delete entire frame. Updates labels for all frames."""
+        if len(self.new_seq_box.get("0.0", "end")) > 1:
+            self.new_seq_box.delete('0.0', "end")
+        else:
+            self.new_text_frame.destroy()
+            app.frame_list.remove(self)
+            app.count = len(app.frame_list) + 1
+            app.update_labels()
 
-    def delete(self):
-        """Deletes the current text in the text box. If the textbox is clear, deletes the text box. Cannot delete the
-        main sequence text box. If a text box is deleted, relabels the remaining text boxes to accurately represent the
-        number present."""
-        # Deleting
 
-        # Relabeling
-        pass
-
-
-class App(customtkinter.CTk):
-    """Class that contains the buttons and functionality of the GUI."""
-
-    def __init__(self):
-        super().__init__()
-        self.title("DNA Comparer")
-
-        # Bringing in the TextFrame class
-        self.my_frame = TextFrame(master=self, width=700, height=400, corner_radius=0, fg_color="transparent")
-        self.my_frame.pack(side="left", fill="both", expand="true")
+class ToolBar:
+    """Constructs the toolbar on the right side of the window."""
+    def __init__(self, master):
+        # The frame itself
+        self.toolbar_frame = customtkinter.CTkFrame(master=master, corner_radius=0, fg_color="transparent")
+        self.toolbar_frame.pack(side="right", fill="both")
 
         # Instruction hyperlink button
-        self.instruction_link_button = customtkinter.CTkButton(self,
+        self.instruction_link_button = customtkinter.CTkButton(master=self.toolbar_frame,
                                                                text="Instructions and Examples",
-                                                               command=instruction_callback)
+                                                               command=self.instruction_callback)
         self.instruction_link_button.pack(padx=20, pady=(20, 10))
 
-        # Button for creating a textbox for a new sequence
-        self.newSeqBox = customtkinter.CTkButton(self, text="New Sequence", command=self.new_textbox_call)
+        # New sequence button
+        self.newSeqBox = customtkinter.CTkButton(master=self.toolbar_frame,
+                                                 text="New Sequence",
+                                                 command=new_frame)
         self.newSeqBox.pack(padx=20, pady=10)
 
-        # List of all sequences
-        self.seq_list = customtkinter.CTkScrollableFrame(master=self)
+        # Sequence list
+        self.seq_list = customtkinter.CTkScrollableFrame(master=self.toolbar_frame, label_text="Sequence List")
         self.seq_list.pack(padx=20, pady=10, fill="both", expand="true")
+        main_seq_label = customtkinter.CTkLabel(master=self.seq_list, text="Main Sequence")
+        main_seq_label.pack()
 
-        # Theme changing menu
-        self.appearance_mode_menu = customtkinter.CTkOptionMenu(self,
+        # Theme changing dropdown
+        self.appearance_mode_menu = customtkinter.CTkOptionMenu(self.toolbar_frame,
                                                                 values=["System", "Dark", "Light"],
                                                                 fg_color=("gray90", "gray20"),
                                                                 button_color=("gray90", "gray20"),
@@ -132,19 +111,64 @@ class App(customtkinter.CTk):
                                                                 command=change_appearance_mode_event)
         self.appearance_mode_menu.pack(padx=20, pady=(10, 20), side="bottom")
 
-        # Submission button
-        self.submitButton = customtkinter.CTkButton(self,
+        # Submit button
+        self.submitButton = customtkinter.CTkButton(self.toolbar_frame,
                                                     fg_color="#FA8072",
                                                     hover_color="#CD5C5C",
                                                     text_color=("gray10", "gray90"),
                                                     text="Submit",
-                                                    command=submission)
+                                                    command=self.submission)
         self.submitButton.pack(padx=20, pady=10, side="bottom")
 
-    def new_textbox_call(self):
-        """Calls function in the Frame class that creates a new textbox below the previous textbox."""
-        self.my_frame.new_textbox()
+    def submission(self):
+        pass
+
+    @staticmethod
+    def instruction_callback():
+        """Opens README of GitHub repo."""
+        webbrowser.open_new("https://github.com/AhmetMuratAcar/DNA-Comparer/blob/master/README.md")
 
 
-app = App()
-app.mainloop()
+class App:
+    """Class that puts everything together. The main window."""
+
+    def __init__(self, master):
+        self.root = master
+        self.root.title("DNA Comparer")
+        self.frame_list = []
+        self.count = len(self.frame_list) + 1
+
+        # Bringing the toolbox frame into the main window
+        self.toolbar_frame = ToolBar(self.root)
+
+        # The scrollable frame in which all sequences are stored
+        self.sequences_frame = customtkinter.CTkScrollableFrame(master=self.root,
+                                                                width=700,
+                                                                height=400,
+                                                                corner_radius=0,
+                                                                fg_color="transparent")
+        self.sequences_frame.pack(side="left", fill="both", expand="true")
+
+        # Bringing in the main sequence frame
+        self.main_frame = MainSeq(self.sequences_frame)
+
+    def update_labels(self):
+        """Updates all labels after a sequence frame is deleted."""
+        for i, frame in enumerate(self.frame_list):
+            frame.new_label.configure(text=f"Sequence #{i+1}")
+
+
+def change_appearance_mode_event(new_scaling: str):
+    """Changes the theme of the app (Light, Dark, System)."""
+    customtkinter.set_appearance_mode(new_scaling)
+
+
+def new_frame():
+    """Creates the new sequence frames"""
+    app.frame_list.append(SeqFrame(master=app.sequences_frame, count=app.count))
+    app.count += 1
+
+
+root = customtkinter.CTk()
+app = App(root)
+root.mainloop()
