@@ -6,6 +6,10 @@ DEL_IMAGE = customtkinter.CTkImage(light_image=Image.open("Images/trash_(light_m
                                    dark_image=Image.open("Images/trash_(dark_mode).png"),
                                    size=(30, 30))
 
+UPLOAD_IMAGE = customtkinter.CTkImage(light_image=Image.open("Images/File_Upload_(dark_mode).png"),
+                                      dark_image=Image.open("Images/File_Upload_(dark_mode).png"),
+                                      size=(20, 20))
+
 customtkinter.set_appearance_mode("System")
 customtkinter.set_default_color_theme("dark-blue")
 
@@ -71,6 +75,8 @@ class SeqFrame:
         else:
             self.new_text_frame.destroy()
             app.frame_list.remove(self)
+            app.toolbar_frame.seq_list_labels[-1].destroy()
+            app.toolbar_frame.seq_list_labels.pop()
             app.count = len(app.frame_list) + 1
             app.update_labels()
 
@@ -78,6 +84,8 @@ class SeqFrame:
 class ToolBar:
     """Constructs the toolbar on the right side of the window."""
     def __init__(self, master):
+        self.seq_list_labels = []
+
         # The frame itself
         self.toolbar_frame = customtkinter.CTkFrame(master=master, corner_radius=0, fg_color="transparent")
         self.toolbar_frame.pack(side="right", fill="both")
@@ -111,6 +119,13 @@ class ToolBar:
                                                                 command=change_appearance_mode_event)
         self.appearance_mode_menu.pack(padx=20, pady=(10, 20), side="bottom")
 
+        # File upload button
+        self.fileButton = customtkinter.CTkButton(self.toolbar_frame,
+                                                  text="File Upload",
+                                                  image=UPLOAD_IMAGE,
+                                                  command=self.upload)
+        self.fileButton.pack(pady=10)
+
         # Submit button
         self.submitButton = customtkinter.CTkButton(self.toolbar_frame,
                                                     fg_color="#FA8072",
@@ -120,7 +135,16 @@ class ToolBar:
                                                     command=self.submission)
         self.submitButton.pack(padx=20, pady=10, side="bottom")
 
+    def seq_list_update(self, count):
+        new_label = customtkinter.CTkLabel(master=self.seq_list,
+                                           text=f"Sequence #{count}")
+        new_label.pack()
+        self.seq_list_labels.append(new_label)
+
     def submission(self):
+        pass
+
+    def upload(self):
         pass
 
     @staticmethod
@@ -153,9 +177,9 @@ class App:
         self.main_frame = MainSeq(self.sequences_frame)
 
     def update_labels(self):
-        """Updates all labels after a sequence frame is deleted."""
+        """Updates all sequence labels after a sequence frame is deleted."""
         for i, frame in enumerate(self.frame_list):
-            frame.new_label.configure(text=f"Sequence #{i+1}")
+            frame.new_label.configure(text=f"Sequence #{i+1}")  # Updating seq labels
 
 
 def change_appearance_mode_event(new_scaling: str):
@@ -164,8 +188,9 @@ def change_appearance_mode_event(new_scaling: str):
 
 
 def new_frame():
-    """Creates the new sequence frames"""
+    """Creates the new sequence frames and updates the sequence list."""
     app.frame_list.append(SeqFrame(master=app.sequences_frame, count=app.count))
+    app.toolbar_frame.seq_list_update(count=app.count)
     app.count += 1
 
 

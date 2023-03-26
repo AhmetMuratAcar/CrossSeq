@@ -1,17 +1,23 @@
 		    -----TO DO-----
 * [DONE] Implement functionality to the delete buttons.
+* [DONE] Add upload file button.
 * [DONE] Implement display functionality to seq list textbox.
 * Implement functionality to the submit button.
 * Code backend for displaying highlighted text.
 * Code front end for displaying compared results.
+* Two tabs in the results: nucleotide and codon view.
 * Implement jump functionality for seq list labels.
 * Implement label renaming and auto-renaming from FASTA seq.
 * Update ReadMe with documentation.
+* Implement functionality to upload file button.
 * Figure out how to implement graph functionality (???????).
 
-Changes since last push March/21 - March/22 2023
-* Completely refactored the frame creation class system
-to make it more readable and extensible.
+Changes since last commit 2023-03-22 : 2023-03-25
+* Added the upload file button.
+* Sequence list display updates live.
+
+2023-03-22 Commit
+* Completely refactored the frame creation class system to make it more readable and extensible.
 * Delete buttons now have functionality.
 * Labels now update when sequence frames are deleted.
 * Light and dark mode trash icons.

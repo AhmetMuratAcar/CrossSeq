@@ -11,7 +11,10 @@ class Sequence:
         self.rightUTR = ""
 
     def parse_fasta(self, fasta_file):
-        """Parses a FASTA file and creates a list in which each line in the FASTA file is an element."""
+        """Parses a FASTA file and creates a list in which each line in the FASTA file is an element. Works on the
+        assumption that the system has enough memory to store read sequence. If this becomes a problem just use the
+        yield function.
+        """
         with open(fasta_file, "r") as ff:
             for line in ff:
                 self.completeFile.append(line)

@@ -3,16 +3,17 @@
 # Different: red
 # Same: green
 # Same codon encoded by different nucleotides: yellow
-
-
 from SequenceClass import Sequence
-from App import App
+from App import *
 
 
 # def comparer(seq1, seq2):
 #     """Compares the two given sequences. Return differences between the two."""
 #     # Maybe use zip function?
 #     # pprint(list(zip(first_seq, second_seq)))
+#     On submit run a for loop that generates a Sequence object for each seq submitted.
+#     Run the class functions for each sequence object as shown below in main and second seq calls.
+#     Then make a function that compares the coding seq of each object to the main seq coding seq.
 #     pass
 
 
@@ -29,12 +30,11 @@ second_seq = Sequence()
 # main_seq.find_start_stop()
 
 # Second seq calls
-# second_seq.parse_fasta(second_file)
-# second_seq.id_retrieve()
-# second_seq.seq_retrieve()
-# second_seq.find_start_stop()
+second_seq.parse_fasta(second_file)
+second_seq.id_retrieve()
+second_seq.seq_retrieve()
+second_seq.find_start_stop()
 
 # comparer(main_seq.codingSeq, second_seq.codingSeq)
 
-screen = App()
-screen.mainloop()
+# root.mainloop()
