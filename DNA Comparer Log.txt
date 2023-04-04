@@ -6,13 +6,18 @@
 * Code backend for displaying highlighted text.
 * Code front end for displaying compared results.
 * Two tabs in the results: nucleotide and codon view.
-* Implement jump functionality for seq list labels.
-* Implement label renaming and auto-renaming from FASTA seq.
+* Implement pop out functionality for seq list labels.
 * Update ReadMe with documentation.
 * Implement functionality to upload file button.
+* Implement label renaming and auto-renaming from FASTA seq.
 * Figure out how to implement graph functionality (???????).
 
-Changes since last commit 2023-03-22 : 2023-03-25
+Changes since last commit 2023-03-25 : 2023-04-04
+* Started work on the submit button functionality.
+	- Only accepts a specific format of input and deletes frames which do not follow.
+	- All sequence labels are updated after this deletion.
+
+2023-03-25 Commit
 * Added the upload file button.
 * Sequence list display updates live.
 

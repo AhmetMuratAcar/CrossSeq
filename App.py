@@ -16,6 +16,7 @@ customtkinter.set_default_color_theme("dark-blue")
 
 class MainSeq:
     """Class that constructs the main sequence frame."""
+
     def __init__(self, master):
         # Frame for main sequence
         self.main_seq_frame = customtkinter.CTkFrame(master=master, corner_radius=0, fg_color="transparent")
@@ -45,6 +46,7 @@ class MainSeq:
 
 class SeqFrame:
     """Class that constructs the sequence frames after main sequence."""
+
     def __init__(self, master, count):
         # Frame for sequence
         self.new_text_frame = customtkinter.CTkFrame(master=master, corner_radius=0, fg_color="transparent")
@@ -83,6 +85,7 @@ class SeqFrame:
 
 class ToolBar:
     """Constructs the toolbar on the right side of the window."""
+
     def __init__(self, master):
         self.seq_list_labels = []
 
@@ -106,6 +109,8 @@ class ToolBar:
         self.seq_list = customtkinter.CTkScrollableFrame(master=self.toolbar_frame, label_text="Sequence List")
         self.seq_list.pack(padx=20, pady=10, fill="both", expand="true")
         main_seq_label = customtkinter.CTkLabel(master=self.seq_list, text="Main Sequence")
+        main_seq_label.focus_set()
+        main_seq_label.bind(sequence="<Button-1>", command=jump_to)
         main_seq_label.pack()
 
         # Theme changing dropdown
@@ -132,7 +137,7 @@ class ToolBar:
                                                     hover_color="#CD5C5C",
                                                     text_color=("gray10", "gray90"),
                                                     text="Submit",
-                                                    command=self.submission)
+                                                    command=submission)
         self.submitButton.pack(padx=20, pady=10, side="bottom")
 
     def seq_list_update(self, count):
@@ -140,9 +145,6 @@ class ToolBar:
                                            text=f"Sequence #{count}")
         new_label.pack()
         self.seq_list_labels.append(new_label)
-
-    def submission(self):
-        pass
 
     def upload(self):
         pass
@@ -162,7 +164,7 @@ class App:
         self.frame_list = []
         self.count = len(self.frame_list) + 1
 
-        # Bringing the toolbox frame into the main window
+        # Bringing the toolbar frame into the main window
         self.toolbar_frame = ToolBar(self.root)
 
         # The scrollable frame in which all sequences are stored
@@ -179,7 +181,16 @@ class App:
     def update_labels(self):
         """Updates all sequence labels after a sequence frame is deleted."""
         for i, frame in enumerate(self.frame_list):
-            frame.new_label.configure(text=f"Sequence #{i+1}")  # Updating seq labels
+            frame.new_label.configure(text=f"Sequence #{i + 1}")
+
+
+def jump_to(*args):
+    """On press of a sequence list label, creates a pop out window of the corresponding sequence frame. The main
+    sequence frame pop out function is separate."""
+    print("joe")
+    # app.main_canvas.yview_moveto(0/200)
+    # app.root.yview_moveto(0)
+    # app.root.yview_moveto(0/200)
 
 
 def change_appearance_mode_event(new_scaling: str):
@@ -192,6 +203,34 @@ def new_frame():
     app.frame_list.append(SeqFrame(master=app.sequences_frame, count=app.count))
     app.toolbar_frame.seq_list_update(count=app.count)
     app.count += 1
+
+
+def submission():
+    """Creates the main/compared Sequence class objects. Then creates the pop out window in which the results are
+    shown."""
+    app.main_seq = app.main_frame.main_seq_text.get("0.0", "end")
+    app.seq_list = []
+    del_indexes = []
+    for frame in app.frame_list:
+        curr_text = frame.new_seq_box.get("0.0", "end")
+        if curr_text.startswith(">"):
+            app.seq_list.append(curr_text)
+        else:
+            del_indexes.append(app.frame_list.index(frame))
+
+    for index in del_indexes:
+        app.frame_list[index].new_seq_box.delete('0.0', "end")
+        app.frame_list[index].remove_frame()
+        # Bug: works as intended for the first time but when the number of frames is changed after list index out of
+        # range error is thrown.
+
+    print(app.main_seq)
+    # print(len(app.main_seq))
+    print(app.seq_list)
+    # print(len(app.seq_list[0]))
+
+
+# LEFT OFF AT WORKING ON THE SUBMISSION FUNCTION
 
 
 root = customtkinter.CTk()

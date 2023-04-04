@@ -41,3 +41,6 @@ if aa[codon1] = aa[codon2] and codon1 != codon2:
 codon1 is the codon of the main sequence.
 codon2 is the codon of the compared sequence.
 This catches cases where different codons encode the same amino acid.
+
+For displaying the results have each FASTA sequence result be its own label and continuously change to fg_color.
+However, I don't know if you can combine labels side by side or have multiple fg_colors in one string.
