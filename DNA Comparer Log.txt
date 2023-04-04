@@ -12,7 +12,9 @@
 * Implement label renaming and auto-renaming from FASTA seq.
 * Figure out how to implement graph functionality (???????).
 
-Changes since last commit 2023-03-25 : 2023-04-04
+Changes since last commit 2023-04-04 : 2023-04-
+
+2023-04-04 Commit
 * Started work on the submit button functionality.
 	- Only accepts a specific format of input and deletes frames which do not follow.
 	- All sequence labels are updated after this deletion.

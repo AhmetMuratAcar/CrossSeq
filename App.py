@@ -211,6 +211,8 @@ def submission():
     app.main_seq = app.main_frame.main_seq_text.get("0.0", "end")
     app.seq_list = []
     del_indexes = []
+
+    # Verifying correct submission format
     for frame in app.frame_list:
         curr_text = frame.new_seq_box.get("0.0", "end")
         if curr_text.startswith(">"):
@@ -218,6 +220,7 @@ def submission():
         else:
             del_indexes.append(app.frame_list.index(frame))
 
+    # Deleting incorrectly formatted submissions
     for index in del_indexes:
         app.frame_list[index].new_seq_box.delete('0.0', "end")
         app.frame_list[index].remove_frame()
@@ -229,8 +232,12 @@ def submission():
     print(app.seq_list)
     # print(len(app.seq_list[0]))
 
+    # Create Sequence class objects and append them into app.seq_list.
 
-# LEFT OFF AT WORKING ON THE SUBMISSION FUNCTION
+    # Creates pop out window containing results (2 tabs). For item in app.seq_list create a frame in which the result
+    # for that sequence will be displayed.
+
+    # Maybe use the tkinter text widget and the tag_add and tag_config commands for creating the highlighted text.
 
 
 root = customtkinter.CTk()
