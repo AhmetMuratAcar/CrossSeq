@@ -12,7 +12,10 @@
 * Implement label renaming and auto-renaming from FASTA seq.
 * Figure out how to implement graph functionality (???????).
 
-Changes since last commit 2023-04-04 : 2023-04-
+Changes since last commit 2023-04-09 :
+
+2023-04-09 Commit
+* Just some comments with ideas on how to solve the frame deletion on submit bugs.
 
 2023-04-04 Commit
 * Started work on the submit button functionality.
