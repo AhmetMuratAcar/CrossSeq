@@ -1,6 +1,7 @@
 import customtkinter
 import webbrowser
 from PIL import Image
+from functools import partial
 
 DEL_IMAGE = customtkinter.CTkImage(light_image=Image.open("Images/trash_(light_mode).png"),
                                    dark_image=Image.open("Images/trash_(dark_mode).png"),
@@ -110,7 +111,7 @@ class ToolBar:
         self.seq_list.pack(padx=20, pady=10, fill="both", expand="true")
         main_seq_label = customtkinter.CTkLabel(master=self.seq_list, text="Main Sequence")
         main_seq_label.focus_set()
-        main_seq_label.bind(sequence="<Button-1>", command=jump_to)
+        main_seq_label.bind(sequence="<Button-1>", command=partial(pop_out, -1))
         main_seq_label.pack()
 
         # Theme changing dropdown
@@ -143,6 +144,8 @@ class ToolBar:
     def seq_list_update(self, count):
         new_label = customtkinter.CTkLabel(master=self.seq_list,
                                            text=f"Sequence #{count}")
+        new_label.focus_set()
+        new_label.bind(sequence="<Button-1>", command=partial(pop_out, count))
         new_label.pack()
         self.seq_list_labels.append(new_label)
 
@@ -155,12 +158,24 @@ class ToolBar:
         webbrowser.open_new("https://github.com/AhmetMuratAcar/DNA-Comparer/blob/master/README.md")
 
 
+class TopLevelWindow(customtkinter.CTkToplevel):
+    """Creates the pop out window for when a sequence label in the sequence list is pressed."""
+
+    def __init__(self, frame, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.geometry("400x300")
+        self.display_frame = frame
+        self.display_frame.master = self
+
+
 class App:
     """Class that puts everything together. The main window."""
 
     def __init__(self, master):
         self.root = master
         self.root.title("DNA Comparer")
+        self.toplevel_window = None
         self.frame_list = []
         self.count = len(self.frame_list) + 1
 
@@ -184,13 +199,15 @@ class App:
             frame.new_label.configure(text=f"Sequence #{i + 1}")
 
 
-def jump_to(*args):
-    """On press of a sequence list label, creates a pop out window of the corresponding sequence frame. The main
-    sequence frame pop out function is separate."""
-    print("joe")
-    # app.main_canvas.yview_moveto(0/200)
-    # app.root.yview_moveto(0)
-    # app.root.yview_moveto(0/200)
+def pop_out(position, *args):  # I have no idea why *args is needed but when I take it out everything breaks.
+    """On press of a sequence list label, creates a pop out window of the corresponding sequence frame."""
+    if app.toplevel_window is None or not app.toplevel_window.winfo_exists():  # Checks if pop out window exists.
+        if position == -1:
+            app.toplevel_window = TopLevelWindow(frame=app.main_frame)
+        else:
+            app.toplevel_window = TopLevelWindow(frame=app.frame_list[position-1])
+    else:
+        app.toplevel_window.focus()  # If pop out window exists focus it.
 
 
 def change_appearance_mode_event(new_scaling: str):
