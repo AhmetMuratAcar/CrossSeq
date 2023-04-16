@@ -165,8 +165,12 @@ class TopLevelWindow(customtkinter.CTkToplevel):
         super().__init__(*args, **kwargs)
 
         self.geometry("400x300")
-        self.display_frame = frame
+        self.display_frame = frame.main_seq_frame
         self.display_frame.master = self
+
+        # display_frame = app.toplevel_window.display_frame.main_seq_frame
+        # display_frame.pack(side="right", fill="both", expand="true")
+        # self.display_frame.main_seq_frame.pack(side="left", fill="both", expand="true")
 
 
 class App:
@@ -201,6 +205,8 @@ class App:
 
 def pop_out(position, *args):  # I have no idea why *args is needed but when I take it out everything breaks.
     """On press of a sequence list label, creates a pop out window of the corresponding sequence frame."""
+
+    display_frame = None
     if app.toplevel_window is None or not app.toplevel_window.winfo_exists():  # Checks if pop out window exists.
         if position == -1:
             app.toplevel_window = TopLevelWindow(frame=app.main_frame)

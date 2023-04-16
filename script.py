@@ -20,8 +20,8 @@ from App import *
 main_file = "Testing Sequences/Oryza_sativa.fasta"
 second_file = "Testing Sequences/Arabidopsis_thaliana.fasta"
 
-main_seq = Sequence()
-second_seq = Sequence()
+# main_seq = Sequence()
+# second_seq = Sequence()
 
 # Main seq calls
 # main_seq.parse_fasta(main_file)
@@ -30,10 +30,10 @@ second_seq = Sequence()
 # main_seq.find_start_stop()
 
 # Second seq calls
-second_seq.parse_fasta(second_file)
-second_seq.id_retrieve()
-second_seq.seq_retrieve()
-second_seq.find_start_stop()
+# second_seq.parse_fasta(second_file)
+# second_seq.id_retrieve()
+# second_seq.seq_retrieve()
+# second_seq.find_start_stop()
 
 # comparer(main_seq.codingSeq, second_seq.codingSeq)
 
