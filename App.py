@@ -264,18 +264,18 @@ def submission():
             del_indexes.append(app.frame_list.index(frame))
 
     # Deleting incorrectly formatted submissions
-    for index in del_indexes:
-        app.frame_list[index].new_seq_box.delete('0.0', "end")
-        app.frame_list[index].remove_frame()
-
-        # Bug: If there are multiple frames with incorrect entries AT THE END of the list a list index out of range
-        # error is thrown on submit and all incorrect frames except 1 are deleted.
-
-        # Bug: 2 incorrect seqs after main seq followed by a correct seq entry. On submit the first incorrect and
-        # correct seq frames are deleted but the 2nd incorrect is left. However, app.seq_list contains the correct seqs.
-
-        # I think these bugs are caused by calling the remove_frame() function and having the order of the list changed.
-        # Probably fix this by decreasing the remaining index values by 1 to accurately represent location of frames.
+    def submission_del(indexes):
+        for index in indexes:
+            app.frame_list[index].new_text_frame.destroy()
+            app.frame_list[index] = None
+            app.toolbar_frame.seq_list_labels[-1].destroy()
+            app.toolbar_frame.seq_list_labels.pop()
+            app.count = len(app.frame_list) + 1
+        app.frame_list = [i for i in app.frame_list if i is not None]  # It works I guess.
+        print(f"This shit is {len(app.frame_list)} frames long")
+        app.count = len(app.frame_list) + 1
+        app.update_labels()
+    submission_del(del_indexes)
 
     print(app.main_seq)
     # print(len(app.main_seq))
