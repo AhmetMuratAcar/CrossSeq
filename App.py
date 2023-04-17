@@ -272,7 +272,6 @@ def submission():
             app.toolbar_frame.seq_list_labels.pop()
             app.count = len(app.frame_list) + 1
         app.frame_list = [i for i in app.frame_list if i is not None]  # It works I guess.
-        print(f"This shit is {len(app.frame_list)} frames long")
         app.count = len(app.frame_list) + 1
         app.update_labels()
     submission_del(del_indexes)
