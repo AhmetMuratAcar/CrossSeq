@@ -158,30 +158,15 @@ class ToolBar:
         webbrowser.open_new("https://github.com/AhmetMuratAcar/DNA-Comparer/blob/master/README.md")
 
 
-class TopLevelWindow(customtkinter.CTkToplevel):
-    """Creates the pop out window for when a sequence label in the sequence list is pressed."""
-
-    def __init__(self, frame, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        self.geometry("400x300")
-        self.display_frame = frame.main_seq_frame
-        self.display_frame.master = self
-
-        # display_frame = app.toplevel_window.display_frame.main_seq_frame
-        # display_frame.pack(side="right", fill="both", expand="true")
-        # self.display_frame.main_seq_frame.pack(side="left", fill="both", expand="true")
-
-
 class App:
     """Class that puts everything together. The main window."""
 
     def __init__(self, master):
         self.root = master
         self.root.title("DNA Comparer")
-        self.toplevel_window = None
         self.frame_list = []
         self.count = len(self.frame_list) + 1
+        self.pop_out_window = None
 
         # Bringing the toolbar frame into the main window
         self.toolbar_frame = ToolBar(self.root)
@@ -206,14 +191,49 @@ class App:
 def pop_out(position, *args):  # I have no idea why *args is needed but when I take it out everything breaks.
     """On press of a sequence list label, creates a pop out window of the corresponding sequence frame."""
 
-    display_frame = None
-    if app.toplevel_window is None or not app.toplevel_window.winfo_exists():  # Checks if pop out window exists.
-        if position == -1:
-            app.toplevel_window = TopLevelWindow(frame=app.main_frame)
-        else:
-            app.toplevel_window = TopLevelWindow(frame=app.frame_list[position-1])
+    # Checks if there is already a pop out window.
+    if app.pop_out_window is not None:
+        app.pop_out_window.focus()
+        return
+
+    top = customtkinter.CTkToplevel()
+    top.geometry("650x250")
+    app.pop_out_window = top
+
+    # Setting title of pop out window.
+    if position == -1:
+        seq_name = "Main Sequence"
     else:
-        app.toplevel_window.focus()  # If pop out window exists focus it.
+        seq_name = f"Sequence #{position}"
+    top.title(seq_name)
+
+    # Creating and placing the copies.
+    label_copy = customtkinter.CTkLabel(master=top, text=seq_name, padx=20)
+    label_copy.pack(anchor="w")
+    textbox_copy = customtkinter.CTkTextbox(master=top)
+    textbox_copy.pack(padx=20, pady=(0, 20), side="left", anchor="w", fill="both", expand="true")
+
+    if position == -1:
+        textbox_copy.insert("0.0", app.main_frame.main_seq_text.get("0.0", "end"))
+    else:
+        textbox_copy.insert("0.0", app.frame_list[position-1].new_seq_box.get("0.0", "end"))
+
+    # Updating the text box in the main window from changes in the pop out window.
+    def update_main_window(event):
+        if position == -1:
+            app.main_frame.main_seq_text.delete("0.0", "end")
+            app.main_frame.main_seq_text.insert("0.0", textbox_copy.get("0.0", "end"))
+        else:
+            app.frame_list[position - 1].new_seq_box.delete("0.0", "end")
+            app.frame_list[position - 1].new_seq_box.insert("0.0", textbox_copy.get("0.0", "end"))
+
+    textbox_copy.bind("<KeyRelease>", update_main_window)
+
+    # Resetting the presence of a pop out window.
+    def reset_top(event):
+        app.pop_out_window = None
+
+    top.bind("<Destroy>", func=reset_top)
 
 
 def change_appearance_mode_event(new_scaling: str):
