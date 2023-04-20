@@ -2,6 +2,8 @@ import customtkinter
 import webbrowser
 from PIL import Image
 from functools import partial
+from SequenceClass import Sequence
+from script import seq_decompose
 
 DEL_IMAGE = customtkinter.CTkImage(light_image=Image.open("Images/trash_(light_mode).png"),
                                    dark_image=Image.open("Images/trash_(dark_mode).png"),
@@ -251,7 +253,7 @@ def new_frame():
 def submission():
     """Creates the main/compared Sequence class objects. Then creates the pop out window in which the results are
     shown."""
-    app.main_seq = app.main_frame.main_seq_text.get("0.0", "end")
+
     app.seq_list = []
     del_indexes = []
 
@@ -276,12 +278,18 @@ def submission():
         app.update_labels()
     submission_del(del_indexes)
 
-    print(app.main_seq)
-    # print(len(app.main_seq))
-    print(app.seq_list)
-    # print(len(app.seq_list[0]))
-
     # Create Sequence class objects and append them into app.seq_list.
+    app.main_seq = Sequence()
+    main_seq_submission = app.main_frame.main_seq_text.get("0.0", "end")
+    app.main_seq.parse_input(main_seq_submission)
+
+    app.seq_objects = []
+    for seq in app.seq_list:
+        seq_object = Sequence()
+        app.seq_objects.append(seq_object)
+        seq_object.parse_input(seq)  # Write function in SequenceClass that parses the user input
+
+    seq_decompose()
 
     # Creates pop out window containing results (2 tabs). For item in app.seq_list create a frame in which the result
     # for that sequence will be displayed.
@@ -291,4 +299,4 @@ def submission():
 
 root = customtkinter.CTk()
 app = App(root)
-root.mainloop()
+# root.mainloop()

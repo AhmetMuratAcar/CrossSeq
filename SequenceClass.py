@@ -22,6 +22,10 @@ class Sequence:
             if line == "\n":
                 self.completeFile.remove(line)  # Removing the empty last elements.
 
+    def parse_input(self, user_input):
+        """Parses user input and creates a list in which each line in the input is an element."""
+        pass
+
     def id_retrieve(self):
         """Obtains ID of sequence from parsed FASTA file"""
         self.id = re.split('>|\\s', self.completeFile[0])[1]
