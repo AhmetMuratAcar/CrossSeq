@@ -18,8 +18,9 @@ class Sequence:
         with open(fasta_file, "r") as ff:
             for line in ff:
                 self.completeFile.append(line)
-        if self.completeFile[-1] == "\n":
-            self.completeFile.remove(self.completeFile[-1])  # Removing the empty last element.
+        for line in self.completeFile:
+            if line == "\n":
+                self.completeFile.remove(line)  # Removing the empty last elements.
 
     def id_retrieve(self):
         """Obtains ID of sequence from parsed FASTA file"""
