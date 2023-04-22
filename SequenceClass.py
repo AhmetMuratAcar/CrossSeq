@@ -24,7 +24,11 @@ class Sequence:
 
     def parse_input(self, user_input):
         """Parses user input and creates a list in which each line in the input is an element."""
-        pass
+        for line in user_input:
+            self.completeFile.append(line)
+        for line in self.completeFile:
+            if line == "\n":
+                self.completeFile.remove(line)  # Removing the empty last elements.
 
     def id_retrieve(self):
         """Obtains ID of sequence from parsed FASTA file"""
