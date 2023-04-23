@@ -13,7 +13,7 @@ def seq_decompose():
     pass
 
 
-root.mainloop()
+# root.mainloop()
 
 # ----------Playground---------- #
 # main_file = "Testing Sequences/Oryza_sativa.fasta"

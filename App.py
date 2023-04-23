@@ -282,6 +282,7 @@ def submission():
     app.main_seq = Sequence()
     main_seq_submission = app.main_frame.main_seq_text.get("0.0", "end")
     app.main_seq.parse_input(main_seq_submission)
+    print(app.main_seq.completeFile)
 
     app.seq_objects = []
     for seq in app.seq_list:
@@ -299,4 +300,4 @@ def submission():
 
 root = customtkinter.CTk()
 app = App(root)
-# root.mainloop()
+root.mainloop()
