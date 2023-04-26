@@ -28,7 +28,7 @@ class Sequence:
             self.completeFile.append(line)
         for line in self.completeFile:
             if line == "\n":
-                self.completeFile.remove(line)  # Removing the empty last elements.
+                self.completeFile.remove(line)
 
     def id_retrieve(self):
         """Obtains ID of sequence from parsed FASTA file"""

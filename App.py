@@ -280,6 +280,7 @@ def submission():
 
     # Create Sequence class objects and append them into app.seq_list.
     app.main_seq = Sequence()
+    # START TAKING INPUT FROM 2.0 TO SKIP FIRST LINE AND BEFORE THIS USE THE FIRST LINE TO GRAB ID
     main_seq_submission = app.main_frame.main_seq_text.get("0.0", "end")
     app.main_seq.parse_input(main_seq_submission)
     print(app.main_seq.completeFile)
@@ -296,6 +297,9 @@ def submission():
     # for that sequence will be displayed.
 
     # Maybe use the tkinter text widget and the tag_add and tag_config commands for creating the highlighted text.
+
+    # Separate SequenceClass into 2 files, one for submission and one for file upload. Actually might not need one for
+    # file upload because on upload the program should auto populate text boxes and fill them with sequences.
 
 
 root = customtkinter.CTk()
