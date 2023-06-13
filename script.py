@@ -7,12 +7,6 @@
 from SequenceClass import Sequence
 from App import *
 
-
-def seq_decompose():
-    """Decomposes the user inputs into their respective parts using SequenceClass functions."""
-    pass
-
-
 # root.mainloop()
 
 # ----------Playground---------- #

@@ -1,44 +1,19 @@
-import re
-
-
 class Sequence:
     def __init__(self):
-        self.completeFile = []
         self.totalSeq = ""
         self.id = ""
         self.leftUTR = ""
         self.codingSeq = []
         self.rightUTR = ""
 
-    def parse_fasta(self, fasta_file):
-        """Parses a FASTA file and creates a list in which each line in the FASTA file is an element. Works on the
-        assumption that the system has enough memory to store read sequence. If this becomes a problem just use the
-        yield function.
-        """
-        with open(fasta_file, "r") as ff:
-            for line in ff:
-                self.completeFile.append(line)
-        for line in self.completeFile:
-            if line == "\n":
-                self.completeFile.remove(line)  # Removing the empty last elements.
+    def id_retrieve(self, total_line):
+        """Obtains ID of sequence from first line of the tkinter text box submission"""
+        split_line = total_line.split(" ", 1)[0]
+        self.id = split_line[1:]
 
-    def parse_input(self, user_input):
-        """Parses user input and creates a list in which each line in the input is an element."""
-        for line in user_input:
-            self.completeFile.append(line)
-        for line in self.completeFile:
-            if line == "\n":
-                self.completeFile.remove(line)
-
-    def id_retrieve(self):
-        """Obtains ID of sequence from parsed FASTA file"""
-        self.id = re.split('>|\\s', self.completeFile[0])[1]
-
-    def seq_retrieve(self):
-        """Obtains total sequence from parsed FASTA file"""
-        temp_seq = self.completeFile[:]
-        del temp_seq[0]
-        self.totalSeq = "".join(temp_seq)
+    def seq_format(self, string_seq):
+        """Formats the tkinter text box submission"""
+        self.totalSeq = "".join(string_seq)
         self.totalSeq = self.totalSeq.replace('\n', '')
 
     def find_start_stop(self):

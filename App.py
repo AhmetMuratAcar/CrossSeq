@@ -3,7 +3,7 @@ import webbrowser
 from PIL import Image
 from functools import partial
 from SequenceClass import Sequence
-from script import seq_decompose
+from SubmissionTasks import sequence_formatting
 
 DEL_IMAGE = customtkinter.CTkImage(light_image=Image.open("Images/trash_(light_mode).png"),
                                    dark_image=Image.open("Images/trash_(dark_mode).png"),
@@ -278,20 +278,17 @@ def submission():
         app.update_labels()
     submission_del(del_indexes)
 
-    # Create Sequence class objects and append them into app.seq_list.
-    app.main_seq = Sequence()
-    # START TAKING INPUT FROM 2.0 TO SKIP FIRST LINE AND BEFORE THIS USE THE FIRST LINE TO GRAB ID
-    main_seq_submission = app.main_frame.main_seq_text.get("0.0", "end")
-    app.main_seq.parse_input(main_seq_submission)
-    print(app.main_seq.completeFile)
+    # Create Sequence class objects.
+    app.seq_tuples = []
+    main_seq_object = Sequence()
+    app.seq_tuples.append((app.main_frame.main_seq_text, main_seq_object))
 
-    app.seq_objects = []
-    for seq in app.seq_list:
+    for frame in app.frame_list:
         seq_object = Sequence()
-        app.seq_objects.append(seq_object)
-        seq_object.parse_input(seq)  # Write function in SequenceClass that parses the user input
+        analysis_tuple = (frame.new_seq_box, seq_object)
+        app.seq_tuples.append(analysis_tuple)
 
-    seq_decompose()
+    sequence_formatting(app.seq_tuples)  # Correctly formats all Sequence objects using text box submission.
 
     # Creates pop out window containing results (2 tabs). For item in app.seq_list create a frame in which the result
     # for that sequence will be displayed.
