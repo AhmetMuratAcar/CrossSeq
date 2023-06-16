@@ -290,13 +290,12 @@ def submission():
 
     sequence_formatting(app.seq_tuples)  # Correctly formats all Sequence objects using text box submission.
 
-    # Creates pop out window containing results (2 tabs). For item in app.seq_list create a frame in which the result
+    # Here is where the analysis between the two sequences would happen.
+
+    # Creates pop out window containing results (2 tabs). For item in app.seq_tuples create a frame in which the result
     # for that sequence will be displayed.
 
     # Maybe use the tkinter text widget and the tag_add and tag_config commands for creating the highlighted text.
-
-    # Separate SequenceClass into 2 files, one for submission and one for file upload. Actually might not need one for
-    # file upload because on upload the program should auto populate text boxes and fill them with sequences.
 
 
 root = customtkinter.CTk()

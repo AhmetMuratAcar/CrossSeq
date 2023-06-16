@@ -9,3 +9,5 @@ def sequence_formatting(object_list):
         seq_pair[1].seq_format(seq_pair[0].get("2.0", "end"))  # Obtaining complete sequence from 2nd line onward.
 
         seq_pair[1].find_start_stop()  # Diving the sequence into its different parts.
+
+# Maybe the comparison on submission should happen here as well?
