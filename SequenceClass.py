@@ -5,6 +5,8 @@ class Sequence:
         self.leftUTR = ""
         self.codingSeq = []
         self.rightUTR = ""
+        self.codonResults = []
+        self.nucleotideResults = []
 
     def id_retrieve(self, total_line):
         """Obtains ID of sequence from first line of the tkinter text box submission"""
@@ -33,4 +35,5 @@ class Sequence:
                 break
             else:
                 self.codingSeq.append(curr_codon)
-        print(f"left UTR: {self.leftUTR}\ncoding Seq: {self.codingSeq}\nright UTR: {self.rightUTR}")
+        # print(f"left UTR: {self.leftUTR}\ncoding Seq: {self.codingSeq}\nright UTR: {self.rightUTR}")
+        # print(len(self.codingSeq))
