@@ -3,7 +3,7 @@ import webbrowser
 from PIL import Image
 from functools import partial
 from SequenceClass import Sequence
-from SubmissionTasks import sequence_formatting
+from SubmissionTasks import sequence_formatting, nucleotide_analysis, codon_analysis
 
 DEL_IMAGE = customtkinter.CTkImage(light_image=Image.open("Images/trash_(light_mode).png"),
                                    dark_image=Image.open("Images/trash_(dark_mode).png"),
@@ -290,7 +290,13 @@ def submission():
 
     sequence_formatting(app.seq_tuples)  # Correctly formats all Sequence objects using text box submission.
 
+    app.object_list = []  # Storing all Sequence objects
+    for sequence in app.seq_tuples:
+        app.object_list.append(sequence[1])
+
     # Here is where the analysis between the two sequences would happen.
+    codon_analysis(app.object_list)
+    nucleotide_analysis(app.object_list)
 
     # Creates pop out window containing results (2 tabs). For item in app.seq_tuples create a frame in which the result
     # for that sequence will be displayed.
