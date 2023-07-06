@@ -42,6 +42,7 @@ def nucleotide_analysis(object_list):
         print(sequence.nucleotideResults)
         print(len(sequence.nucleotideResults))
 
+
 def codon_analysis(object_list):
     """Conducts the codon analysis of submitted sequences."""
 
