@@ -16,8 +16,31 @@ def sequence_formatting(object_list):
 
 def nucleotide_analysis(object_list):
     """Conducts the nucleotide analysis of submitted sequences."""
-    pass
 
+    main_seq = object_list[0]
+    for sequence in object_list[1:]:
+        # Calculating which sequence is shorter for the comparison.
+        if len(sequence.nucleotideSeq) < len(main_seq.nucleotideSeq):
+            comparison_length = len(sequence.nucleotideSeq)
+        else:
+            comparison_length = len(main_seq.nucleotideSeq)
+
+        # Comparing the two sequences.
+        for nucleotide in range(0, comparison_length):
+            if sequence.nucleotideSeq[nucleotide] == main_seq.nucleotideSeq[nucleotide]:
+                # Green
+                sequence.nucleotideResults.append("G")
+            else:
+                # Grey
+                sequence.nucleotideResults.append("N")
+
+        # Denoting the remaining/missing codons.
+        difference = abs(len(sequence.nucleotideSeq) - len(main_seq.nucleotideSeq))
+        for i in range(0, difference):
+            sequence.nucleotideResults.append("X")
+
+        print(sequence.nucleotideResults)
+        print(len(sequence.nucleotideResults))
 
 def codon_analysis(object_list):
     """Conducts the codon analysis of submitted sequences."""

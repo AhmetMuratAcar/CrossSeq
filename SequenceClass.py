@@ -4,6 +4,7 @@ class Sequence:
         self.id = ""
         self.leftUTR = ""
         self.codingSeq = []
+        self.nucleotideSeq = []
         self.rightUTR = ""
         self.codonResults = []
         self.nucleotideResults = []
@@ -34,6 +35,9 @@ class Sequence:
                 self.rightUTR = remaining_seq[i+1:]  # Sets right UTR to remaining DNA.
                 break
             else:
-                self.codingSeq.append(curr_codon)
+                self.codingSeq.append(curr_codon)  # Codon sequence
+                self.nucleotideSeq.extend((curr_codon[0], curr_codon[1], curr_codon[2]))  # Nucleotide sequence
+
         # print(f"left UTR: {self.leftUTR}\ncoding Seq: {self.codingSeq}\nright UTR: {self.rightUTR}")
         # print(len(self.codingSeq))
+        # print(self.nucleotideSeq)
