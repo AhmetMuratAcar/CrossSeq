@@ -34,10 +34,11 @@ def nucleotide_analysis(object_list):
                 # Grey
                 sequence.nucleotideResults.append("N")
 
-        # Denoting the remaining/missing codons.
-        difference = abs(len(sequence.nucleotideSeq) - len(main_seq.nucleotideSeq))
-        for i in range(0, difference):
-            sequence.nucleotideResults.append("X")
+        # Denoting the remaining/missing codons for the comparison sequence.
+        difference = len(sequence.nucleotideSeq) - len(main_seq.nucleotideSeq)
+        if difference > 0:
+            for i in range(0, difference):
+                sequence.nucleotideResults.append("X")
 
         print(sequence.nucleotideResults)
         print(len(sequence.nucleotideResults))
