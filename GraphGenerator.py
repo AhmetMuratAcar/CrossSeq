@@ -34,7 +34,7 @@ def graph_gen(seq_objects):
 
             # Outlining graph for visual clarity.
             graph = ImageOps.expand(rectangle, border=2, fill="black")
-            # draw = ImageDraw.Draw(graph)
+            draw = ImageDraw.Draw(graph)
             # img.save("test.png")
             graph.show()
             images.append((graph, split))

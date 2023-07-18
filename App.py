@@ -4,6 +4,7 @@ from PIL import Image
 from functools import partial
 from SequenceClass import Sequence
 from SubmissionTasks import sequence_formatting, nucleotide_analysis, codon_analysis
+from GraphGenerator import graph_gen
 
 DEL_IMAGE = customtkinter.CTkImage(light_image=Image.open("Images/trash_(light_mode).png"),
                                    dark_image=Image.open("Images/trash_(dark_mode).png"),
@@ -184,6 +185,8 @@ class App:
         # Bringing in the main sequence frame
         self.main_frame = MainSeq(self.sequences_frame)
 
+        self.results = []
+
     def update_labels(self):
         """Updates all sequence labels after a sequence frame is deleted."""
         for i, frame in enumerate(self.frame_list):
@@ -298,10 +301,15 @@ def submission():
     codon_analysis(app.object_list)
     nucleotide_analysis(app.object_list)
 
-    # Creates pop out window containing results (2 tabs). For item in app.seq_tuples create a frame in which the result
-    # for that sequence will be displayed.
+    # Generating graphs from analysis results
+    app.results = graph_gen(app.object_list)
 
-    # Maybe use the tkinter text widget and the tag_add and tag_config commands for creating the highlighted text.
+    # To display the results you want a new window with frame for each sequence submitted.
+    # Top frame should be slim and have a download all button and maybe some other things.
+    # Each frame after initial one should contain the following buttons:
+    # Nucleotide results (toggles nucleotide results graph and respective stats)
+    # Codon results (toggles codon results graph and respective stats)
+    # Download results (downloads a formatted PDF containing both graphs and respective statistics)
 
 
 root = customtkinter.CTk()
