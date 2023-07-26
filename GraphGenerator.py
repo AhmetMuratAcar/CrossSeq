@@ -23,7 +23,7 @@ def graph_gen(seq_objects):
         split = False
 
         while num_graphs < 2:
-            # Determining if graph is too long
+            # Determining if graph is too long. REMOVE THIS PORTION. NEW IDEA DOESN'T NEED SPLIT.
             graph_len = len(curr_graph)*2
             if graph_len > max_length:
                 split = True

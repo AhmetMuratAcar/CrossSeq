@@ -5,6 +5,7 @@ from functools import partial
 from SequenceClass import Sequence
 from SubmissionTasks import sequence_formatting, nucleotide_analysis, codon_analysis
 from GraphGenerator import graph_gen
+from ResultsPage import result_creation
 
 DEL_IMAGE = customtkinter.CTkImage(light_image=Image.open("Images/trash_(light_mode).png"),
                                    dark_image=Image.open("Images/trash_(dark_mode).png"),
@@ -304,12 +305,8 @@ def submission():
     # Generating graphs from analysis results
     app.results = graph_gen(app.object_list)
 
-    # To display the results you want a new window with frame for each sequence submitted.
-    # Top frame should be slim and have a download all button and maybe some other things.
-    # Each frame after initial one should contain the following buttons:
-    # Nucleotide results (toggles nucleotide results graph and respective stats)
-    # Codon results (toggles codon results graph and respective stats)
-    # Download results (downloads a formatted PDF containing both graphs and respective statistics)
+    # Creating results page
+    result_creation(app.object_list, app.results)
 
 
 root = customtkinter.CTk()
