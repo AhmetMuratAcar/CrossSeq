@@ -1,5 +1,4 @@
 import customtkinter
-from App import app
 
 
 class TopFrame:
@@ -15,10 +14,17 @@ class ResultFrame:
         pass
 
 
-class Results:
+class Results(customtkinter.CTk):
     """Full window in which all ResultFrames are displayed."""
-    def __int__(self, master):
-        pass
+    def __init__(self):
+        super().__init__()
+        # self.geometry("600x500")
+        self.title("Results")
+        self.frame_list = []
+
+        # Bring in TopFrame
+
+        # Bring in all ResultFrames through result_creation and new_result
 
 
 def new_result(seq, graphs):
@@ -31,9 +37,13 @@ def result_creation(objects, graphs):
     pass
 
 
+results_page = Results()
+# results_page.mainloop()
+
+
 # To display the results you want a new window with frame for each sequence submitted.
-    # Top frame should be slim and have a download all button and maybe some other things.
-    # Each frame after initial one should contain the following buttons:
-    # Nucleotide results (toggles nucleotide results graph and respective stats)
-    # Codon results (toggles codon results graph and respective stats)
-    # Download results (downloads a formatted PDF containing both graphs and respective statistics)
+# Top frame should be slim and have a download all button and maybe some other things.
+# Each frame after initial one should contain the following buttons:
+# Nucleotide results (toggles nucleotide results graph and respective stats)
+# Codon results (toggles codon results graph and respective stats)
+# Download results (downloads a formatted PDF containing both graphs and respective statistics)

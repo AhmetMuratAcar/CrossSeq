@@ -36,7 +36,7 @@ def graph_gen(seq_objects):
             graph = ImageOps.expand(rectangle, border=2, fill="black")
             draw = ImageDraw.Draw(graph)
             # img.save("test.png")
-            graph.show()
+            # graph.show()
             images.append((graph, split))
 
             num_graphs += 1
