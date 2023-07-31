@@ -1,6 +1,12 @@
 import customtkinter
 
 
+class KeyElements(customtkinter.CTk):
+    """Used to construct the key for interpreting graph results."""
+    def __init__(self, master, **kwargs):
+        super().__init__(master, **kwargs)
+
+
 class TopFrame(customtkinter.CTkFrame):
     """Contains options that pertain to all results."""
 
