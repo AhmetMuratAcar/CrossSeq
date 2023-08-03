@@ -1,10 +1,33 @@
 import customtkinter
 
+# HEX COLORS
+GREEN = "#00FF00"
+
 
 class KeyElements(customtkinter.CTk):
     """Used to construct the key for interpreting graph results."""
-    def __init__(self, master, **kwargs):
-        super().__init__(master, **kwargs)
+
+    def __init__(self, master, text):
+        super().__init__(master)
+        # Frame for storing key color and definition
+        self.colorFrame = customtkinter.CTkFrame(master=master, fg_color="transparent")
+        self.colorFrame.pack(side="top")
+        # Pack this frame in the TopFrame function
+
+        # Color of the label
+        self.keyElement = customtkinter.CTkLabel(master=self.colorFrame,
+                                                 fg_color="#00FF00",
+                                                 width=26,
+                                                 height=26,
+                                                 text="",
+                                                 corner_radius=13)
+        self.keyElement.pack(side="left")
+
+        # Definition text
+        self.colorDefinition = customtkinter.CTkLabel(master=self.colorFrame,
+                                                      fg_color="transparent",
+                                                      text=text,
+                                                      padx=2)
 
 
 class TopFrame(customtkinter.CTkFrame):
@@ -16,20 +39,22 @@ class TopFrame(customtkinter.CTkFrame):
         # Key for result graphs.
 
         # GREEN
-        self.greenFrame = customtkinter.CTkFrame(master=self, fg_color="transparent")
-        self.greenFrame.pack(side="top")
-        self.green = customtkinter.CTkLabel(master=self.greenFrame,
-                                            fg_color="#00FF00",  # Green
-                                            width=26,
-                                            height=26,
-                                            text="",
-                                            corner_radius=13)
-        self.green.pack(side="left")
-        self.greenText = customtkinter.CTkLabel(master=self.greenFrame,
-                                                fg_color="transparent",
-                                                text="= Matching Sequence",
-                                                padx=2)
-        self.greenText.pack(side="left")
+        self.greenFrame = KeyElements(master=self, text="= Matching Sequence")
+
+        # self.greenFrame = customtkinter.CTkFrame(master=self, fg_color="transparent")
+        # self.greenFrame.pack(side="top")
+        # self.green = customtkinter.CTkLabel(master=self.greenFrame,
+        #                                     fg_color="#00FF00",  # Green
+        #                                     width=26,
+        #                                     height=26,
+        #                                     text="",
+        #                                     corner_radius=13)
+        # self.green.pack(side="left")
+        # self.greenText = customtkinter.CTkLabel(master=self.greenFrame,
+        #                                         fg_color="transparent",
+        #                                         text="= Matching Sequence",
+        #                                         padx=2)
+        # self.greenText.pack(side="left")
 
         # GRAY
         self.grayFrame = customtkinter.CTkFrame(master=self, fg_color="transparent")
