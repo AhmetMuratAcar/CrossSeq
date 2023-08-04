@@ -7,8 +7,9 @@ GREEN = "#00FF00"
 class KeyElements(customtkinter.CTk):
     """Used to construct the key for interpreting graph results."""
 
-    def __init__(self, master, text):
+    def __init__(self, master, color: str, text):
         super().__init__(master)
+
         # Frame for storing key color and definition
         self.colorFrame = customtkinter.CTkFrame(master=master, fg_color="transparent")
         self.colorFrame.pack(side="top")
@@ -16,7 +17,7 @@ class KeyElements(customtkinter.CTk):
 
         # Color of the label
         self.keyElement = customtkinter.CTkLabel(master=self.colorFrame,
-                                                 fg_color="#00FF00",
+                                                 fg_color=color,
                                                  width=26,
                                                  height=26,
                                                  text="",
@@ -39,7 +40,7 @@ class TopFrame(customtkinter.CTkFrame):
         # Key for result graphs.
 
         # GREEN
-        self.greenFrame = KeyElements(master=self, text="= Matching Sequence")
+        self.greenFrame = KeyElements(master=self, text="= Matching Sequence", color="#00FF00")
 
         # self.greenFrame = customtkinter.CTkFrame(master=self, fg_color="transparent")
         # self.greenFrame.pack(side="top")
@@ -120,14 +121,15 @@ class Results(customtkinter.CTk):
         self.title("Results")
         self.geometry("400x600")
 
+        # Bring in TopFrame
+        self.topFrame = TopFrame(master=self, fg_color="transparent")
+        self.topFrame.pack(side="top")
+
         # Scrollable frame in which the result frames will be placed.
         self.completeFrame = customtkinter.CTkScrollableFrame(master=self)
         self.completeFrame.pack(side="bottom", fill="both", expand="true")
         self.frame_list = []
 
-        # Bring in TopFrame
-        self.topFrame = TopFrame(master=self, fg_color="transparent")
-        self.topFrame.pack(side="top")
         # Bring in all ResultFrames through result_creation and new_result
 
 
