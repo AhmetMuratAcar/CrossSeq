@@ -1,19 +1,14 @@
 import customtkinter
 
-# HEX COLORS
-GREEN = "#00FF00"
-
 
 class KeyElements(customtkinter.CTk):
     """Used to construct the key for interpreting graph results."""
 
     def __init__(self, master, color: str, text):
-        super().__init__(master)
+        super().__init__()
 
         # Frame for storing key color and definition
         self.colorFrame = customtkinter.CTkFrame(master=master, fg_color="transparent")
-        self.colorFrame.pack(side="top")
-        # Pack this frame in the TopFrame function
 
         # Color of the label
         self.keyElement = customtkinter.CTkLabel(master=self.colorFrame,
@@ -29,6 +24,7 @@ class KeyElements(customtkinter.CTk):
                                                       fg_color="transparent",
                                                       text=text,
                                                       padx=2)
+        self.colorDefinition.pack(side="left")
 
 
 class TopFrame(customtkinter.CTkFrame):
@@ -38,72 +34,21 @@ class TopFrame(customtkinter.CTkFrame):
         super().__init__(master, **kwargs)
 
         # Key for result graphs.
-
         # GREEN
         self.greenFrame = KeyElements(master=self, text="= Matching Sequence", color="#00FF00")
-
-        # self.greenFrame = customtkinter.CTkFrame(master=self, fg_color="transparent")
-        # self.greenFrame.pack(side="top")
-        # self.green = customtkinter.CTkLabel(master=self.greenFrame,
-        #                                     fg_color="#00FF00",  # Green
-        #                                     width=26,
-        #                                     height=26,
-        #                                     text="",
-        #                                     corner_radius=13)
-        # self.green.pack(side="left")
-        # self.greenText = customtkinter.CTkLabel(master=self.greenFrame,
-        #                                         fg_color="transparent",
-        #                                         text="= Matching Sequence",
-        #                                         padx=2)
-        # self.greenText.pack(side="left")
+        self.greenFrame.colorFrame.pack(side="left")
 
         # GRAY
-        self.grayFrame = customtkinter.CTkFrame(master=self, fg_color="transparent")
-        self.grayFrame.pack(side="left")
-        self.gray = customtkinter.CTkLabel(master=self.grayFrame,
-                                           fg_color="#A9A9A9",  # Gray
-                                           width=26,
-                                           height=26,
-                                           text="",
-                                           corner_radius=13)
-        self.gray.pack(side="left")
-        self.grayText = customtkinter.CTkLabel(master=self.grayFrame,
-                                               fg_color="transparent",
-                                               text="= Differing Sequence",
-                                               padx=2, )
-        self.grayText.pack(side="right")
+        self.grayFrame = KeyElements(master=self, text="= Differing Sequence", color="#A9A9A9")
+        self.grayFrame.colorFrame.pack(side="left")
 
         # RED
-        self.redFrame = customtkinter.CTkFrame(master=self, fg_color="transparent")
-        self.redFrame.pack(side="right")
-        self.red = customtkinter.CTkLabel(master=self.redFrame,
-                                          fg_color="#FF0000",  # Red
-                                          width=26,
-                                          height=26,
-                                          text="",
-                                          corner_radius=13)
-        self.red.pack(side="left")
-        self.redText = customtkinter.CTkLabel(master=self.redFrame,
-                                              fg_color="transparent",
-                                              text="= Out of Scope",
-                                              padx=2)
-        self.redText.pack(side="left")
+        self.redFrame = KeyElements(master=self, text="= Out of Scope", color="#FF0000")
+        self.redFrame.colorFrame.pack(side="left")
 
         # Yellow
-        self.yellowFrame = customtkinter.CTkFrame(master=self, fg_color="transparent")
-        self.yellowFrame.pack(side="bottom")
-        self.yellow = customtkinter.CTkLabel(master=self.yellowFrame,
-                                             fg_color="#FF0000",  # Red
-                                             width=26,
-                                             height=26,
-                                             text="",
-                                             corner_radius=13)
-        self.yellow.pack(side="left")
-        self.yellowText = customtkinter.CTkLabel(master=self.yellowFrame,
-                                                 fg_color="transparent",
-                                                 text="= Out of Scope",
-                                                 padx=2)
-        self.yellowText.pack(side="left")
+        self.YellowFrame = KeyElements(master=self, text="= Same Codon Encoded by Different Sequence", color="#FFFF00")
+        self.YellowFrame.colorFrame.pack(side="left")
 
 
 class ResultFrame:
@@ -119,7 +64,7 @@ class Results(customtkinter.CTk):
     def __init__(self):
         super().__init__()
         self.title("Results")
-        self.geometry("400x600")
+        self.geometry("900x600")
 
         # Bring in TopFrame
         self.topFrame = TopFrame(master=self, fg_color="transparent")
