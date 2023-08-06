@@ -5,7 +5,7 @@ from functools import partial
 from SequenceClass import Sequence
 from SubmissionTasks import sequence_formatting, nucleotide_analysis, codon_analysis
 from GraphGenerator import graph_gen
-from ResultsPage import result_creation, results_page
+from ResultsPage import result_creation, Results
 
 DEL_IMAGE = customtkinter.CTkImage(light_image=Image.open("Images/trash_(light_mode).png"),
                                    dark_image=Image.open("Images/trash_(dark_mode).png"),
@@ -306,8 +306,9 @@ def submission():
     app.results = graph_gen(app.object_list)
 
     # Creating and displaying results page
-    result_creation(app.object_list, app.results)
-    results_page.mainloop()
+    # results_page = Results()
+    # result_creation(app.object_list, app.results)
+    # results_page.mainloop()
 
 
 root = customtkinter.CTk()

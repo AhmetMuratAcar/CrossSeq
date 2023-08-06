@@ -38,13 +38,23 @@ class TopFrame(customtkinter.CTkFrame):
         self.greenFrame = KeyElements(master=self, text="= Matching Sequence", color="#00FF00")
         self.greenFrame.colorFrame.pack(side="left")
 
+        # Spacer because for some reason labels don't allow for defining padding on both sides as a tuple.
+        self.spacer = customtkinter.CTkLabel(master=self, text="   ")
+        self.spacer.pack(side="left")
+
         # GRAY
         self.grayFrame = KeyElements(master=self, text="= Differing Sequence", color="#A9A9A9")
         self.grayFrame.colorFrame.pack(side="left")
 
+        self.spacer2 = customtkinter.CTkLabel(master=self, text="   ")
+        self.spacer2.pack(side="left")
+
         # RED
         self.redFrame = KeyElements(master=self, text="= Out of Scope", color="#FF0000")
         self.redFrame.colorFrame.pack(side="left")
+
+        self.spacer3 = customtkinter.CTkLabel(master=self, text="   ")
+        self.spacer3.pack(side="left")
 
         # Yellow
         self.YellowFrame = KeyElements(master=self, text="= Same Codon Encoded by Different Sequence", color="#FFFF00")
