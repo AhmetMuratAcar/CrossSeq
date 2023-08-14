@@ -1,5 +1,5 @@
 import customtkinter
-
+from DownloadResults import results_download
 
 class KeyElements(customtkinter.CTk):
     """Used to construct the key for interpreting graph results."""
@@ -36,29 +36,25 @@ class TopFrame(customtkinter.CTkFrame):
         # Key for result graphs.
         # GREEN
         self.greenFrame = KeyElements(master=self, text="= Matching Sequence", color="#00FF00")
-        self.greenFrame.colorFrame.pack(side="left")
-
-        # Spacer because for some reason labels don't allow for defining padding on both sides as a tuple.
-        self.spacer = customtkinter.CTkLabel(master=self, text="   ")
-        self.spacer.pack(side="left")
+        self.greenFrame.colorFrame.pack(side="left", padx=(20, 10), pady=10)
 
         # GRAY
         self.grayFrame = KeyElements(master=self, text="= Differing Sequence", color="#A9A9A9")
-        self.grayFrame.colorFrame.pack(side="left")
-
-        self.spacer2 = customtkinter.CTkLabel(master=self, text="   ")
-        self.spacer2.pack(side="left")
+        self.grayFrame.colorFrame.pack(side="left", padx=10)
 
         # RED
         self.redFrame = KeyElements(master=self, text="= Out of Scope", color="#FF0000")
-        self.redFrame.colorFrame.pack(side="left")
-
-        self.spacer3 = customtkinter.CTkLabel(master=self, text="   ")
-        self.spacer3.pack(side="left")
+        self.redFrame.colorFrame.pack(side="left", padx=10)
 
         # Yellow
         self.YellowFrame = KeyElements(master=self, text="= Same Codon Encoded by Different Sequence", color="#FFFF00")
-        self.YellowFrame.colorFrame.pack(side="left")
+        self.YellowFrame.colorFrame.pack(side="left", padx=(10,20))
+
+        # Download Button
+        self.DownloadResults = customtkinter.CTkButton(master=self,
+                                                       text="Download Results",
+                                                       command=results_download)
+        self.DownloadResults.pack(side="right", padx=(0,20))
 
 
 class ResultFrame:
@@ -74,7 +70,7 @@ class Results(customtkinter.CTk):
     def __init__(self):
         super().__init__()
         self.title("Results")
-        self.geometry("900x600")
+        self.geometry("1050x600")
 
         # Bring in TopFrame
         self.topFrame = TopFrame(master=self, fg_color="transparent")
