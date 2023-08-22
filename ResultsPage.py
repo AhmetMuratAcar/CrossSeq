@@ -1,6 +1,7 @@
 import customtkinter
 from DownloadResults import results_download
 
+
 class KeyElements(customtkinter.CTk):
     """Used to construct the key for interpreting graph results."""
 

@@ -10,23 +10,17 @@ red = (255, 0, 0)  # Outside of comparison scope
 def graph_gen(seq_objects):
     """Generates horizontal graphs by using nucleotide and codon results.
     Input: list of Sequence objects.
-    Return: list of generated tuples (graph_image, split_boolean) where the odd numbered locations are codon and even
-    are nucleotide graphs."""
+    Return: list of generated graphs where the odd numbered locations are codon and even are nucleotide graphs."""
 
     images = []
-    max_length = 800
     pixel_width = 2
 
     for seq in seq_objects:
         curr_graph = seq.codonResults
         num_graphs = 0
-        split = False
 
         while num_graphs < 2:
-            # Determining if graph is too long. REMOVE THIS PORTION. NEW IDEA DOESN'T NEED SPLIT.
-            graph_len = len(curr_graph)*2
-            if graph_len > max_length:
-                split = True
+            graph_len = len(curr_graph)*pixel_width
 
             # Generating the initial bare-bones graph.
             rectangle = Image.new("RGBA", (graph_len, 30), red)  # (width, height)
@@ -34,10 +28,10 @@ def graph_gen(seq_objects):
 
             # Outlining graph for visual clarity.
             graph = ImageOps.expand(rectangle, border=2, fill="black")
-            draw = ImageDraw.Draw(graph)
+            # draw = ImageDraw.Draw(graph)
             # img.save("test.png")
-            # graph.show()
-            images.append((graph, split))
+            graph.show()
+            images.append(graph)
 
             num_graphs += 1
             curr_graph = seq.nucleotideResults  # Running again to generate nucleotide results graph.
