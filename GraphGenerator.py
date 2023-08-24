@@ -12,27 +12,29 @@ def graph_gen(seq_objects):
 
     images = []
     pixel_width = 2
+    to_be_constructed = []
 
     for seq in seq_objects:
-        to_be_constructed = [seq.nucleotideResults, seq.codonResults]
+        to_be_constructed.extend([seq.nucleotideResults, seq.codonResults])
 
-        for result in to_be_constructed:
-            graph_len = len(result)*pixel_width
+    for result in to_be_constructed:
+        graph_len = len(result)*pixel_width
 
-            # Generating the initial bare-bones graph.
-            init_graph = Image.new("RGBA", (graph_len, 30), color="red")  # (width, height)
-            draw = ImageDraw.Draw(init_graph)
+        # Generating the initial bare-bones graph.
+        init_graph = Image.new("RGBA", (graph_len, 30), color="red")  # (width, height)
+        draw = ImageDraw.Draw(init_graph)
 
-            # Editing the bare-bones rectangle into graph.
-            x_val = 0
-            for location in result:
-                if location == "X":
-                    break
-                draw.line((x_val, 0, x_val, 30), fill=color_map[location], width=pixel_width)
-                x_val += pixel_width
+        # Editing the bare-bones rectangle into graph.
+        x_val = 0
+        for location in result:
+            if location == "X":
+                break
+            draw.line((x_val, 0, x_val, 30), fill=color_map[location], width=pixel_width)
+            x_val += pixel_width
 
-            # Outlining graph for visual clarity.
-            fin_graph = ImageOps.expand(init_graph, border=2, fill="black")
-            fin_graph.show()
-            images.append(fin_graph)
+        # Outlining graph for visual clarity.
+        fin_graph = ImageOps.expand(init_graph, border=2, fill="black")
+        # fin_graph.show()
+        images.append(fin_graph)
+
     return images
