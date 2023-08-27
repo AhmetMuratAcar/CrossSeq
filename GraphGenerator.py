@@ -21,13 +21,12 @@ def graph_gen(seq_objects):
         nuc_len = len(seq.nucleotideResults) * pixel_width
         codon_len = len(seq.codonResults) * pixel_width
         seq.graphLengths.extend([nuc_len, codon_len])
-        print(seq.graphLengths)
 
     for result in to_be_constructed:
         graph_len = len(result)*pixel_width
 
         # Generating the initial bare-bones graph.
-        init_graph = Image.new("RGBA", (graph_len, 30), color="red")  # (width, height)
+        init_graph = Image.new("RGBA", (graph_len, 60), color="red")  # (width, height)
         draw = ImageDraw.Draw(init_graph)
 
         # Editing the bare-bones rectangle into graph.
@@ -35,7 +34,7 @@ def graph_gen(seq_objects):
         for location in result:
             if location == "X":
                 break
-            draw.line((x_val, 0, x_val, 30), fill=color_map[location], width=pixel_width)
+            draw.line((x_val, 0, x_val, 60), fill=color_map[location], width=pixel_width)
             x_val += pixel_width
 
         # Outlining graph for visual clarity.

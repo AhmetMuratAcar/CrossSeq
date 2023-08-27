@@ -71,15 +71,13 @@ class ResultFrame:
         self.seq_label.pack(anchor="w", padx=20)
 
         # Bringing in nucleotide and codon graphs
-        self.nuc_graph = customtkinter.CTkImage(light_image=graphs[0])
+        self.nuc_graph = customtkinter.CTkImage(light_image=graphs[1], size=(seq_obj.graphLengths[0], 60))
         self.nuc_label = customtkinter.CTkLabel(master=self.results_frame, image=self.nuc_graph, text="")
         self.nuc_label.pack(anchor="w", padx=20)
-        # , size=(seq_obj.graphLengths[0], 30)
 
-        self.codon_graph = customtkinter.CTkImage(light_image=graphs[1])
+        self.codon_graph = customtkinter.CTkImage(light_image=graphs[0], size=(seq_obj.graphLengths[1], 60))
         self.codon_label = customtkinter.CTkLabel(master=self.results_frame, image=self.codon_graph, text="")
         self.codon_label.pack(anchor="w", padx=20)
-        # , size=(seq_obj.graphLengths[1], 30)
 
 
 class Results(customtkinter.CTkToplevel):

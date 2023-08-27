@@ -40,8 +40,8 @@ def nucleotide_analysis(object_list):
             for i in range(0, difference):
                 sequence.nucleotideResults.append("X")
 
-        print(sequence.nucleotideResults)
-        print(len(sequence.nucleotideResults))
+        # print(sequence.nucleotideResults)
+        # print(len(sequence.nucleotideResults))
 
 
 def codon_analysis(object_list):
