@@ -5,7 +5,7 @@ from functools import partial
 from SequenceClass import Sequence
 from SubmissionTasks import sequence_formatting, nucleotide_analysis, codon_analysis
 from GraphGenerator import graph_gen
-from ResultsPage import result_creation, Results
+from ResultsPage import Results
 
 DEL_IMAGE = customtkinter.CTkImage(light_image=Image.open("Images/trash_(light_mode).png"),
                                    dark_image=Image.open("Images/trash_(dark_mode).png"),
@@ -171,6 +171,7 @@ class App:
         self.frame_list = []
         self.count = len(self.frame_list) + 1
         self.pop_out_window = None
+        self.results_window = None
 
         # Bringing the toolbar frame into the main window
         self.toolbar_frame = ToolBar(self.root)
@@ -192,6 +193,10 @@ class App:
         """Updates all sequence labels after a sequence frame is deleted."""
         for i, frame in enumerate(self.frame_list):
             frame.new_label.configure(text=f"Sequence #{i + 1}")
+
+    def open_results(self):
+        """Creates the Toplevel window to display results."""
+        self.results_window = Results()
 
 
 def pop_out(position, *args):  # I have no idea why *args is needed but when I take it out everything breaks.
@@ -306,11 +311,11 @@ def submission():
     app.results = graph_gen(app.object_list)
 
     # Creating and displaying results page
-    # results_page = Results()
-    # result_creation(app.object_list, app.results)
-    # results_page.mainloop()
+    app.open_results()
+    app.results_window.result_creation(objects=app.object_list, graphs=app.results)
 
 
 root = customtkinter.CTk()
+root.geometry("1050x600")
 app = App(root)
 root.mainloop()

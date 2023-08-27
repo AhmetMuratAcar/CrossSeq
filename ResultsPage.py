@@ -49,7 +49,7 @@ class TopFrame(customtkinter.CTkFrame):
 
         # Yellow
         self.YellowFrame = KeyElements(master=self, text="= Same Codon Encoded by Different Sequence", color="#FFFF00")
-        self.YellowFrame.colorFrame.pack(side="left", padx=(10,20))
+        self.YellowFrame.colorFrame.pack(side="left", padx=(10, 20))
 
         # Download Button
         self.DownloadResults = customtkinter.CTkButton(master=self,
@@ -65,7 +65,7 @@ class ResultFrame:
         pass
 
 
-class Results(customtkinter.CTk):
+class Results(customtkinter.CTkToplevel):
     """Full window in which all ResultFrames are displayed."""
 
     def __init__(self):
@@ -82,21 +82,21 @@ class Results(customtkinter.CTk):
         self.completeFrame.pack(side="bottom", fill="both", expand="true")
         self.frame_list = []
 
-        # Bring in all ResultFrames through result_creation and new_result
+    def result_creation(self, objects, graphs):
+        """Creates all parts of results within app."""
+        # For every object, call new_result by passing in the object and respective graphs. Pack the resulting frame
+        # here.
+        pass
+
+    def new_result(self, seq, graphs):
+        """Creates a new ResultFrame and packs it in Result frame."""
+        # Call this in result_creation to create a new ResultFrame object. Pack the respective graphs and buttons here.
+        # Remember to append self.frame_list with newly created frames.
+        pass
 
 
-def new_result(seq, graphs):
-    """Creates a new ResultFrame and packs it in Result frame."""
-    pass
-
-
-def result_creation(objects, graphs):
-    """Creates all parts of results within app."""
-    pass
-
-
-results_page = Results()
-results_page.mainloop()
+# results_page = Results()
+# results_page.mainloop()
 
 # To display the results you want a new window with frame for each sequence submitted.
 # Top frame should be slim and have a download all button and maybe some other things.
