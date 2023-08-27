@@ -307,12 +307,12 @@ def submission():
     codon_analysis(app.object_list)
     nucleotide_analysis(app.object_list)
 
-    # Generating graphs from analysis results
-    app.results = graph_gen(app.object_list)
+    # Generating graphs from analysis results. [1:] because first object is the main_seq object.
+    app.results = graph_gen(app.object_list[1:])
 
     # Creating and displaying results page
     app.open_results()
-    app.results_window.result_creation(objects=app.object_list, graphs=app.results)
+    app.results_window.result_creation(objects=app.object_list[1:], graphs=app.results)
 
 
 root = customtkinter.CTk()

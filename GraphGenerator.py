@@ -17,6 +17,12 @@ def graph_gen(seq_objects):
     for seq in seq_objects:
         to_be_constructed.extend([seq.nucleotideResults, seq.codonResults])
 
+        # Passing lengths into seq objects for proper construction in the results page.
+        nuc_len = len(seq.nucleotideResults) * pixel_width
+        codon_len = len(seq.codonResults) * pixel_width
+        seq.graphLengths.extend([nuc_len, codon_len])
+        print(seq.graphLengths)
+
     for result in to_be_constructed:
         graph_len = len(result)*pixel_width
 

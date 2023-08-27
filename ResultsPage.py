@@ -61,8 +61,25 @@ class TopFrame(customtkinter.CTkFrame):
 class ResultFrame:
     """Frame in which all results for one sequence are displayed."""
 
-    def __init__(self, master):
-        pass
+    def __init__(self, master, seq_obj, graphs):
+        # Frame everything goes in
+        self.results_frame = customtkinter.CTkFrame(master=master, corner_radius=0)
+        self.results_frame.pack(side="top", fill="x", expand="true")
+
+        # ID label
+        self.seq_label = customtkinter.CTkLabel(master=self.results_frame, text=f"Sequence: {seq_obj.id}")
+        self.seq_label.pack(anchor="w", padx=20)
+
+        # Bringing in nucleotide and codon graphs
+        self.nuc_graph = customtkinter.CTkImage(light_image=graphs[0])
+        self.nuc_label = customtkinter.CTkLabel(master=self.results_frame, image=self.nuc_graph, text="")
+        self.nuc_label.pack(anchor="w", padx=20)
+        # , size=(seq_obj.graphLengths[0], 30)
+
+        self.codon_graph = customtkinter.CTkImage(light_image=graphs[1])
+        self.codon_label = customtkinter.CTkLabel(master=self.results_frame, image=self.codon_graph, text="")
+        self.codon_label.pack(anchor="w", padx=20)
+        # , size=(seq_obj.graphLengths[1], 30)
 
 
 class Results(customtkinter.CTkToplevel):
@@ -84,15 +101,10 @@ class Results(customtkinter.CTkToplevel):
 
     def result_creation(self, objects, graphs):
         """Creates all parts of results within app."""
-        # For every object, call new_result by passing in the object and respective graphs. Pack the resulting frame
-        # here.
-        pass
-
-    def new_result(self, seq, graphs):
-        """Creates a new ResultFrame and packs it in Result frame."""
-        # Call this in result_creation to create a new ResultFrame object. Pack the respective graphs and buttons here.
-        # Remember to append self.frame_list with newly created frames.
-        pass
+        for i in range(0, len(objects)):
+            curr_graphs = (graphs[(i*2)-1], graphs[i*2])  # incrementing graphs to make sure objects and graphs match.
+            result_frame = ResultFrame(master=self.completeFrame, seq_obj=objects[i], graphs=curr_graphs)
+            self.frame_list.append(result_frame)
 
 
 # results_page = Results()

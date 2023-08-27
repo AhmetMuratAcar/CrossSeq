@@ -8,6 +8,7 @@ class Sequence:
         self.rightUTR = ""
         self.codonResults = []
         self.nucleotideResults = []
+        self.graphLengths = []
 
     def id_retrieve(self, total_line):
         """Obtains ID of sequence from first line of the tkinter text box submission"""
