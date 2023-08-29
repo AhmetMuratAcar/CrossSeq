@@ -103,14 +103,3 @@ class Results(customtkinter.CTkToplevel):
             curr_graphs = (graphs[(i*2)-1], graphs[i*2])  # incrementing graphs to make sure objects and graphs match.
             result_frame = ResultFrame(master=self.completeFrame, seq_obj=objects[i], graphs=curr_graphs)
             self.frame_list.append(result_frame)
-
-
-# results_page = Results()
-# results_page.mainloop()
-
-# To display the results you want a new window with frame for each sequence submitted.
-# Top frame should be slim and have a download all button and maybe some other things.
-# Each frame after initial one should contain the following buttons:
-# Nucleotide results (toggles nucleotide results graph and respective stats)
-# Codon results (toggles codon results graph and respective stats)
-# Download results (downloads a formatted PDF containing both graphs and respective statistics)
