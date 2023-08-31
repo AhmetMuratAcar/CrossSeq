@@ -151,6 +151,12 @@ class Results(customtkinter.CTkToplevel):
         self.main_seq_ID.configure(text=f"Main sequence ID: {main_seq.id}")
 
         for i in range(0, len(objects)):
-            curr_graphs = (graphs[(i * 2) - 1], graphs[i * 2])  # incrementing graphs to make sure objects and graphs match.
+            # To fix the bug that occurs with the positioning of graphs when more than 1 comparison sequence is
+            # submitted, make it so the graphs of an object are stored as an attribute for that object instead of items
+            # in app.results.
+            # Do this by changing the code in GraphGenerator, adjusting how the function is called in App, and removing
+            # app.results as it is no longer needed. Then adjust the code below because you will now only need to submit
+            # the Sequence object and no graphs.
+            curr_graphs = (graphs[(i * 2) - 1], graphs[i * 2])
             result_frame = ResultFrame(master=self.completeFrame, seq_obj=objects[i], graphs=curr_graphs)
             self.frame_list.append(result_frame)
