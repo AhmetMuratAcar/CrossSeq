@@ -55,7 +55,7 @@ class TopFrame(customtkinter.CTkFrame):
         self.DownloadResults = customtkinter.CTkButton(master=self,
                                                        text="Download Results",
                                                        command=results_download)
-        self.DownloadResults.pack(side="right", padx=(0,20))
+        self.DownloadResults.pack(side="left", padx=(0, 20))
 
 
 class ResultFrame:
@@ -73,7 +73,7 @@ class ResultFrame:
         # Bringing in nucleotide and codon graphs
         self.nuc_graph = customtkinter.CTkImage(light_image=graphs[1], size=(seq_obj.graphLengths[0], 60))
         self.nuc_label = customtkinter.CTkLabel(master=self.results_frame, image=self.nuc_graph, text="")
-        self.nuc_label.pack(anchor="w", padx=20)
+        self.nuc_label.pack(anchor="w", padx=20, pady=(0, 10))
 
         self.codon_graph = customtkinter.CTkImage(light_image=graphs[0], size=(seq_obj.graphLengths[1], 60))
         self.codon_label = customtkinter.CTkLabel(master=self.results_frame, image=self.codon_graph, text="")
@@ -88,6 +88,10 @@ class Results(customtkinter.CTkToplevel):
         self.title("Results")
         self.geometry("1050x600")
 
+        # Main sequence ID
+        self.main_seq_ID = customtkinter.CTkLabel(master=self, text="Main sequence ID: ")
+        self.main_seq_ID.pack(side="top", pady=(5, 0))
+
         # Bring in TopFrame
         self.topFrame = TopFrame(master=self, fg_color="transparent")
         self.topFrame.pack(side="top")
@@ -97,8 +101,10 @@ class Results(customtkinter.CTkToplevel):
         self.completeFrame.pack(side="bottom", fill="both", expand="true")
         self.frame_list = []
 
-    def result_creation(self, objects, graphs):
+    def result_creation(self, main_seq, objects, graphs):
         """Creates all parts of results within app."""
+        self.main_seq_ID.configure(text=f"Main sequence ID: {main_seq.id}")
+
         for i in range(0, len(objects)):
             curr_graphs = (graphs[(i*2)-1], graphs[i*2])  # incrementing graphs to make sure objects and graphs match.
             result_frame = ResultFrame(master=self.completeFrame, seq_obj=objects[i], graphs=curr_graphs)

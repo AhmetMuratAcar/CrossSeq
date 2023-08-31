@@ -312,7 +312,7 @@ def submission():
 
     # Creating and displaying results page
     app.open_results()
-    app.results_window.result_creation(objects=app.object_list[1:], graphs=app.results)
+    app.results_window.result_creation(main_seq=app.object_list[0], objects=app.object_list[1:], graphs=app.results)
 
 
 root = customtkinter.CTk()
