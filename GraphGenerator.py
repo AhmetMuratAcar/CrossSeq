@@ -11,7 +11,7 @@ def graph_gen(seq_objects):
     Return: list of generated graphs where the odd numbered locations are codon and even are nucleotide graphs."""
 
     images = []
-    pixel_width = 2
+    pixel_width = 1
     to_be_constructed = []
 
     for seq in seq_objects:

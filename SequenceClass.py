@@ -9,6 +9,8 @@ class Sequence:
         self.codonResults = []
         self.nucleotideResults = []
         self.graphLengths = []
+        self.nucleotideStats = {"G": None, "N": None, "X": None, "Y": None}
+        self.codonStats = {"G": None, "N": None, "X": None, "Y": None}
 
     def id_retrieve(self, total_line):
         """Obtains ID of sequence from first line of the tkinter text box submission"""

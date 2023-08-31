@@ -1,4 +1,5 @@
 from CodonMap import codon_map
+from decimal import Decimal
 
 
 def sequence_formatting(object_list):
@@ -17,6 +18,7 @@ def sequence_formatting(object_list):
 def nucleotide_analysis(object_list):
     """Conducts the nucleotide analysis of submitted sequences."""
 
+    # Comparing nucleotide sequence to main nucleotide sequence
     main_seq = object_list[0]
     for sequence in object_list[1:]:
         # Calculating which sequence is shorter for the comparison.
@@ -43,10 +45,24 @@ def nucleotide_analysis(object_list):
         # print(sequence.nucleotideResults)
         # print(len(sequence.nucleotideResults))
 
+    # Nucleotide statistics calculations
+    for sequence in object_list[1:]:
+        length = len(sequence.nucleotideResults)
+
+        temp_decimal = Decimal(str(sequence.nucleotideResults.count("G") / length * 100))
+        sequence.nucleotideStats["G"] = round(temp_decimal, 3)
+
+        temp_decimal = Decimal(str(sequence.nucleotideResults.count("N") / length * 100))
+        sequence.nucleotideStats["N"] = round(temp_decimal, 3)
+
+        temp_decimal = Decimal(str(sequence.nucleotideResults.count("X") / length * 100))
+        sequence.nucleotideStats["X"] = round(temp_decimal, 3)
+
 
 def codon_analysis(object_list):
     """Conducts the codon analysis of submitted sequences."""
 
+    # Comparing codon sequence to main codon sequence
     main_seq = object_list[0]
     for sequence in object_list[1:]:
         # Calculating which sequence is shorter for the comparison.
@@ -75,3 +91,19 @@ def codon_analysis(object_list):
 
         # print(sequence.codonResults)
         # print(len(sequence.codonResults))
+
+    # Codon statistics calculations
+    for sequence in object_list[1:]:
+        length = len(sequence.codonResults)
+
+        temp_decimal = Decimal(str(sequence.codonResults.count("G") / length * 100))
+        sequence.codonStats["G"] = round(temp_decimal, 3)
+
+        temp_decimal = Decimal(str(sequence.codonResults.count("N") / length * 100))
+        sequence.codonStats["N"] = round(temp_decimal, 3)
+
+        temp_decimal = Decimal(str(sequence.codonResults.count("X") / length * 100))
+        sequence.codonStats["X"] = round(temp_decimal, 3)
+
+        temp_decimal = Decimal(str(sequence.codonResults.count("Y") / length * 100))
+        sequence.codonStats["Y"] = round(temp_decimal, 3)

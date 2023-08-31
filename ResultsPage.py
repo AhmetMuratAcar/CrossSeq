@@ -48,14 +48,33 @@ class TopFrame(customtkinter.CTkFrame):
         self.redFrame.colorFrame.pack(side="left", padx=10)
 
         # Yellow
-        self.YellowFrame = KeyElements(master=self, text="= Same Codon Encoded by Different Sequence", color="#FFFF00")
-        self.YellowFrame.colorFrame.pack(side="left", padx=(10, 20))
+        self.yellowFrame = KeyElements(master=self, text="= Same Codon Encoded by Different Sequence", color="#FFFF00")
+        self.yellowFrame.colorFrame.pack(side="left", padx=(10, 20))
 
         # Download Button
         self.DownloadResults = customtkinter.CTkButton(master=self,
                                                        text="Download Results",
                                                        command=results_download)
         self.DownloadResults.pack(side="left", padx=(0, 20))
+
+
+class StatsKey(customtkinter.CTkFrame):
+    """Key for constructing stats for each graph."""
+
+    def __init__(self, master, data):
+        super().__init__(master)
+        self.greenFrame = KeyElements(master=self, text=f": {data['G']}%", color="#00FF00")
+        self.greenFrame.colorFrame.pack(side="left", padx=(20, 10), pady=10)
+
+        self.grayFrame = KeyElements(master=self, text=f": {data['N']}%", color="#A9A9A9")
+        self.grayFrame.colorFrame.pack(side="left", padx=10, pady=10)
+
+        self.redFrame = KeyElements(master=self, text=f": {data['X']}%", color="#FF0000")
+        self.redFrame.colorFrame.pack(side="left", padx=10, pady=10)
+
+        if data["Y"]:
+            self.yellowFrame = KeyElements(master=self, text=f": {data['Y']}%", color="#FFFF00")
+            self.yellowFrame.colorFrame.pack(side="left", padx=10, pady=10)
 
 
 class ResultFrame:
@@ -66,18 +85,44 @@ class ResultFrame:
         self.results_frame = customtkinter.CTkFrame(master=master, corner_radius=0)
         self.results_frame.pack(side="top", fill="x", expand="true")
 
-        # ID label
-        self.seq_label = customtkinter.CTkLabel(master=self.results_frame, text=f"Sequence: {seq_obj.id}")
-        self.seq_label.pack(anchor="w", padx=20)
+        # Frame for sequence info
+        self.info_frame = customtkinter.CTkFrame(master=self.results_frame, corner_radius=0, fg_color="transparent")
+        self.info_frame.pack(side="top", fill="x", expand="true")
 
-        # Bringing in nucleotide and codon graphs
+        # ID label
+        self.seq_label = customtkinter.CTkLabel(master=self.info_frame, text=f"Sequence: {seq_obj.id}")
+        self.seq_label.pack(side="left", padx=20)
+
+        # Nucleotide and codon CDS length labels
+        self.nucCDS_len = customtkinter.CTkLabel(master=self.info_frame,
+                                                 text=f"Nucleotide CDS Length: {len(seq_obj.nucleotideResults)}")
+        self.nucCDS_len.pack(side="left", padx=20)
+
+        self.codonCDS_len = customtkinter.CTkLabel(master=self.info_frame,
+                                                   text=f"Codon CDS Length: {len(seq_obj.codonResults)}")
+        self.codonCDS_len.pack(side="left", padx=20)
+
+        # Nucleotide graph and statistics
+        self.nuc_graph_label = customtkinter.CTkLabel(master=self.results_frame, text="Nucleotide Graph")
+        self.nuc_graph_label.pack(anchor="w", padx=20)
         self.nuc_graph = customtkinter.CTkImage(light_image=graphs[1], size=(seq_obj.graphLengths[0], 60))
         self.nuc_label = customtkinter.CTkLabel(master=self.results_frame, image=self.nuc_graph, text="")
         self.nuc_label.pack(anchor="w", padx=20, pady=(0, 10))
 
+        self.nuc_stats = StatsKey(master=self.results_frame, data=seq_obj.nucleotideStats)
+        self.nuc_stats.configure(fg_color="transparent")
+        self.nuc_stats.pack(anchor="w", padx=20, pady=(0, 10))
+
+        # Codon graph and statistics
+        self.codon_graph_label = customtkinter.CTkLabel(master=self.results_frame, text="Codon Graph")
+        self.codon_graph_label.pack(anchor="w", padx=20)
         self.codon_graph = customtkinter.CTkImage(light_image=graphs[0], size=(seq_obj.graphLengths[1], 60))
         self.codon_label = customtkinter.CTkLabel(master=self.results_frame, image=self.codon_graph, text="")
-        self.codon_label.pack(anchor="w", padx=20)
+        self.codon_label.pack(anchor="w", padx=20, pady=(0, 10))
+
+        self.codon_stats = StatsKey(master=self.results_frame, data=seq_obj.codonStats)
+        self.codon_stats.configure(fg_color="transparent")
+        self.codon_stats.pack(anchor="w", padx=20)
 
 
 class Results(customtkinter.CTkToplevel):
@@ -106,6 +151,6 @@ class Results(customtkinter.CTkToplevel):
         self.main_seq_ID.configure(text=f"Main sequence ID: {main_seq.id}")
 
         for i in range(0, len(objects)):
-            curr_graphs = (graphs[(i*2)-1], graphs[i*2])  # incrementing graphs to make sure objects and graphs match.
+            curr_graphs = (graphs[(i * 2) - 1], graphs[i * 2])  # incrementing graphs to make sure objects and graphs match.
             result_frame = ResultFrame(master=self.completeFrame, seq_obj=objects[i], graphs=curr_graphs)
             self.frame_list.append(result_frame)
