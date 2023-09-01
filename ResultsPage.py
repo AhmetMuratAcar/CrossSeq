@@ -105,7 +105,7 @@ class ResultFrame:
         # Nucleotide graph and statistics
         self.nuc_graph_label = customtkinter.CTkLabel(master=self.results_frame, text="Nucleotide Graph")
         self.nuc_graph_label.pack(anchor="w", padx=20)
-        self.nuc_graph = customtkinter.CTkImage(light_image=graphs[1], size=(seq_obj.graphLengths[0], 60))
+        self.nuc_graph = customtkinter.CTkImage(light_image=graphs[1], size=(seq_obj.graphLengths[0], 30))
         self.nuc_label = customtkinter.CTkLabel(master=self.results_frame, image=self.nuc_graph, text="")
         self.nuc_label.pack(anchor="w", padx=20, pady=(0, 10))
 
@@ -116,7 +116,7 @@ class ResultFrame:
         # Codon graph and statistics
         self.codon_graph_label = customtkinter.CTkLabel(master=self.results_frame, text="Codon Graph")
         self.codon_graph_label.pack(anchor="w", padx=20)
-        self.codon_graph = customtkinter.CTkImage(light_image=graphs[0], size=(seq_obj.graphLengths[1], 60))
+        self.codon_graph = customtkinter.CTkImage(light_image=graphs[0], size=(seq_obj.graphLengths[1], 30))
         self.codon_label = customtkinter.CTkLabel(master=self.results_frame, image=self.codon_graph, text="")
         self.codon_label.pack(anchor="w", padx=20, pady=(0, 10))
 
