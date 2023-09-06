@@ -105,7 +105,7 @@ class ResultFrame:
         # Nucleotide graph and statistics
         self.nuc_graph_label = customtkinter.CTkLabel(master=self.results_frame, text="Nucleotide Graph")
         self.nuc_graph_label.pack(anchor="w", padx=20)
-        self.nuc_graph = customtkinter.CTkImage(light_image=graphs[1], size=(seq_obj.graphLengths[0], 30))
+        self.nuc_graph = customtkinter.CTkImage(light_image=graphs[0], size=(seq_obj.graphLengths[0], 30))
         self.nuc_label = customtkinter.CTkLabel(master=self.results_frame, image=self.nuc_graph, text="")
         self.nuc_label.pack(anchor="w", padx=20, pady=(0, 10))
 
@@ -116,13 +116,20 @@ class ResultFrame:
         # Codon graph and statistics
         self.codon_graph_label = customtkinter.CTkLabel(master=self.results_frame, text="Codon Graph")
         self.codon_graph_label.pack(anchor="w", padx=20)
-        self.codon_graph = customtkinter.CTkImage(light_image=graphs[0], size=(seq_obj.graphLengths[1], 30))
+        self.codon_graph = customtkinter.CTkImage(light_image=graphs[1], size=(seq_obj.graphLengths[1], 30))
         self.codon_label = customtkinter.CTkLabel(master=self.results_frame, image=self.codon_graph, text="")
         self.codon_label.pack(anchor="w", padx=20, pady=(0, 10))
 
         self.codon_stats = StatsKey(master=self.results_frame, data=seq_obj.codonStats)
         self.codon_stats.configure(fg_color="transparent")
         self.codon_stats.pack(anchor="w", padx=20)
+
+
+class SpacerFrame:
+    """Spacers for visual clarity between ResultFrames"""
+    def __init__(self, master):
+        self.spacerFrame = customtkinter.CTkFrame(master=master, fg_color="#1a1a1a", corner_radius=0, height=5)
+        self.spacerFrame.pack(side="top", fill="x")
 
 
 class Results(customtkinter.CTkToplevel):
@@ -150,13 +157,11 @@ class Results(customtkinter.CTkToplevel):
         """Creates all parts of results within app."""
         self.main_seq_ID.configure(text=f"Main sequence ID: {main_seq.id}")
 
-        for i in range(0, len(objects)):
-            # To fix the bug that occurs with the positioning of graphs when more than 1 comparison sequence is
-            # submitted, make it so the graphs of an object are stored as an attribute for that object instead of items
-            # in app.results.
-            # Do this by changing the code in GraphGenerator, adjusting how the function is called in App, and removing
-            # app.results as it is no longer needed. Then adjust the code below because you will now only need to submit
-            # the Sequence object and no graphs.
-            curr_graphs = (graphs[(i * 2) - 1], graphs[i * 2])
-            result_frame = ResultFrame(master=self.completeFrame, seq_obj=objects[i], graphs=curr_graphs)
+        for i in range(0, len(graphs), 2):
+            curr_graphs = (graphs[i], graphs[i+1])
+            result_frame = ResultFrame(master=self.completeFrame, seq_obj=objects[int(i/2)], graphs=curr_graphs)
             self.frame_list.append(result_frame)
+
+            # Creating spacers between all results
+            if i != len(graphs)-2:
+                SpacerFrame(master=self.completeFrame)
