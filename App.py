@@ -100,7 +100,7 @@ class ToolBar:
 
         # Instruction hyperlink button
         self.instruction_link_button = customtkinter.CTkButton(master=self.toolbar_frame,
-                                                               text="Instructions and Examples",
+                                                               text="Documentation",
                                                                command=self.instruction_callback)
         self.instruction_link_button.pack(padx=20, pady=(20, 10))
 
@@ -130,11 +130,11 @@ class ToolBar:
         self.appearance_mode_menu.pack(padx=20, pady=(10, 20), side="bottom")
 
         # File upload button
-        self.fileButton = customtkinter.CTkButton(self.toolbar_frame,
-                                                  text="File Upload",
-                                                  image=UPLOAD_IMAGE,
-                                                  command=self.upload)
-        self.fileButton.pack(pady=10)
+        # self.fileButton = customtkinter.CTkButton(self.toolbar_frame,
+        #                                           text="File Upload",
+        #                                           image=UPLOAD_IMAGE,
+        #                                           command=self.upload)
+        # self.fileButton.pack(pady=10)
 
         # Submit button
         self.submitButton = customtkinter.CTkButton(self.toolbar_frame,
