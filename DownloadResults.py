@@ -7,17 +7,23 @@ from SequenceClass import Sequence
 def results_download(main_id, seq_objects, graphs):
     """Allows user to choose where graphs and statistics will be saved."""
 
-    print(main_id)
-    print(len(seq_objects))
-    print(len(graphs))
-
     # Creating folder in user's desired path
     folder_name = f"{main_id}_vs_{len(seq_objects)}"
     path = filedialog.askdirectory()
     folder = os.path.join(path, folder_name)
     os.makedirs(folder, exist_ok=True)
 
-    #
+    # Saving graphs
+    for i in range(0, len(graphs), 2):
+        nuc_graph_name = f"{seq_objects[int(i/2)].id}_Nucleotide_Graph.jpg"
+        nuc_graph_file = os.path.join(folder, nuc_graph_name)
+        graphs[i].save(nuc_graph_file, format="PNG")
+
+        codon_graph_name = f"{seq_objects[int(i/2)].id}_Codon_Graph.jpg"
+        codon_graph_file = os.path.join(folder, codon_graph_name)
+        graphs[i+1].save(codon_graph_file, format="PNG")
+
+    # Creating markdown file in folder above
     md_name = f"{folder_name}_statistics"
     md_file = os.path.join(folder, md_name)
     create_markdown(sequences=seq_objects, destination=md_file, title_id=main_id)
@@ -57,4 +63,4 @@ seq1.codonStats[3] = 140.0
 
 seq_list = [seq1, seq2]
 
-results_download(main_id=main_ting, graphs=graph_ting, seq_objects=seq_list)
+# results_download(main_id=main_ting, graphs=graph_ting, seq_objects=seq_list)
