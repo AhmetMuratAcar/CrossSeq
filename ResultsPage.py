@@ -34,6 +34,11 @@ class TopFrame(customtkinter.CTkFrame):
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
 
+        # For results_download function
+        self.main_seq = None
+        self.sequences = None
+        self.graphs = None
+
         # Key for result graphs.
         # GREEN
         self.greenFrame = KeyElements(master=self, text="= Matching Sequence", color="#00FF00")
@@ -54,8 +59,12 @@ class TopFrame(customtkinter.CTkFrame):
         # Download Button
         self.DownloadResults = customtkinter.CTkButton(master=self,
                                                        text="Download Results",
-                                                       command=results_download)
+                                                       command=self.download_creation)
         self.DownloadResults.pack(side="left", padx=(0, 20))
+
+    def download_creation(self):
+        """Calls results_download with proper items."""
+        results_download(seq_objects=self.sequences, graphs=self.graphs, main_id=self.main_seq)
 
 
 class StatsKey(customtkinter.CTkFrame):
@@ -165,3 +174,8 @@ class Results(customtkinter.CTkToplevel):
             # Creating spacers between all results
             if i != len(graphs)-2:
                 SpacerFrame(master=self.completeFrame)
+
+        # Updating topFrame elements for use in results_download
+        self.topFrame.main_seq = main_seq.id
+        self.topFrame.sequences = objects
+        self.topFrame.graphs = graphs
