@@ -1,7 +1,6 @@
 from tkinter import filedialog
 from mdutils.mdutils import MdUtils
 import os
-from SequenceClass import Sequence
 
 
 def results_download(main_id, seq_objects, graphs):
@@ -31,36 +30,32 @@ def results_download(main_id, seq_objects, graphs):
 
 def create_markdown(title_id, sequences, destination):
     """Creates and saves markdown file containing generated statistics results."""
-    file = MdUtils(file_name=destination, title=f"Main Sequence ID: {title_id}")
-    file.create_md_file()  # Remember to move this command to the very end after all text is written.
+    stats_file = MdUtils(file_name=destination)
+    stats_file.new_header(level=1, title=f"Main Sequence ID: {title_id}")
+    stats_file.new_header(level=2, title="")
 
+    # Creating formatted markdown section for each sequence
+    for sequence in sequences:
+        stats_file.new_header(level=3, title=f"ID: {sequence.id}")
+        stats_file.new_header(level=4, title="Nucleotide Statistics")
 
-# Test variables
-main_ting = "joe"
-graph_ting = [0, 1, 2, 3, 4, 5]
+        nucleotide_table_data = ["Result", "Percentage"]
+        nucleotide_table_data.extend(["Matching", sequence.nucleotideStats["G"]])
+        nucleotide_table_data.extend(["Differing", sequence.nucleotideStats["N"]])
+        nucleotide_table_data.extend(["Out of Scope", sequence.nucleotideStats["X"]])
+        stats_file.new_table(columns=2, rows=4, text_align="center", text=nucleotide_table_data)
 
-seq1 = Sequence()
-seq1.id = "TEST 1"
-seq1.nucleotideStats[0] = 10.0
-seq1.nucleotideStats[1] = 20.0
-seq1.nucleotideStats[2] = 30.0
+        stats_file.new_header(level=4, title="Codon Statistics")
+        stats_file.new_paragraph("SCEDS = same codon encoded by different sequence")
 
-seq1.codonStats[0] = 40.0
-seq1.codonStats[1] = 50.0
-seq1.codonStats[2] = 60.0
-seq1.codonStats[3] = 70.0
+        codon_table_data = ["Result", "Percentage"]
+        codon_table_data.extend(["Matching", sequence.codonStats["G"]])
+        codon_table_data.extend(["Differing", sequence.codonStats["N"]])
+        codon_table_data.extend(["SCEDS", sequence.codonStats["Y"]])
+        codon_table_data.extend(["Out of Scope", sequence.codonStats["X"]])
+        stats_file.new_table(columns=2, rows=5, text_align="center", text=codon_table_data)
 
-seq2 = Sequence()
-seq1.id = "TEST 2"
-seq1.nucleotideStats[0] = 80.0
-seq1.nucleotideStats[1] = 90.0
-seq1.nucleotideStats[2] = 100.0
+        # Divider
+        stats_file.new_paragraph("---")
 
-seq1.codonStats[0] = 110.0
-seq1.codonStats[1] = 120.0
-seq1.codonStats[2] = 130.0
-seq1.codonStats[3] = 140.0
-
-seq_list = [seq1, seq2]
-
-# results_download(main_id=main_ting, graphs=graph_ting, seq_objects=seq_list)
+    stats_file.create_md_file()
