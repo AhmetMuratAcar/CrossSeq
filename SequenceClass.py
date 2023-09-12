@@ -25,7 +25,6 @@ class Sequence:
         # Converting U to T
         if "U" in self.totalSeq:
             self.totalSeq = self.totalSeq.replace("U", "T")
-            print(self.totalSeq)
 
     def find_start_stop(self):
         """Finds the start and stop codon of given sequence"""
