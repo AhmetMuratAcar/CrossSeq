@@ -148,6 +148,7 @@ class Results(customtkinter.CTkToplevel):
         super().__init__()
         self.title("Results")
         self.geometry("1050x600")
+        self.iconbitmap("Images/logo.ico")
 
         # Main sequence ID
         self.main_seq_ID = customtkinter.CTkLabel(master=self, text="Main sequence ID: ")
