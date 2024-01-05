@@ -318,5 +318,7 @@ def submission():
 root = customtkinter.CTk()
 root.iconbitmap("Images/logo.ico")
 root.geometry("1050x600")
-app = App(root)
-root.mainloop()
+
+if __name__ == "__main__":
+    app = App(root)
+    root.mainloop()
