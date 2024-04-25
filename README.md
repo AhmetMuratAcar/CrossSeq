@@ -10,7 +10,11 @@ CrossSeq is a simple visualization tool for comparing and contrasting the coding
 The resulting analysis yields 2 graphs and a markdown file containing the generated statistics per comparison sequence. 
 
 ## How to Install and Run CrossSeq
-Currently, there is no release or .exe file to run CrossSeq. Cloning the repo and pip installing the dependencies is the best method for using CrossSeq. Afterward, running the App.py file is all it takes.
+Ensure that you have a version of Python > 3.7 installed. Clone this repository to your device. Access the local file through your terminal and run the following command to install the dependencies:
+```
+pip install -r requirements.txt
+```
+After the dependencies are successfully installed, all you need to do is run the `App.py` file.
 
 ## Navigating the UI
 
