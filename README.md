@@ -10,7 +10,7 @@ CrossSeq is a simple visualization tool for comparing and contrasting the coding
 The resulting analysis yields 2 graphs per comparison sequence (codon and nucleotide analyses) and a markdown file containing the caluclated statistics for each comparison.
 
 ## How to Install and Run CrossSeq
-Ensure that you have a version of Python > 3.7 installed. Clone this repository to your device. Access the local file through your terminal and run the following command to install the dependencies:
+Ensure that you have a version of Python > 3.7 installed. Either clone this repository or download the current release to your device. Access the local file through your terminal and run the following command to install the dependencies:
 ```
 pip install -r requirements.txt
 ```
@@ -28,7 +28,7 @@ After the dependencies are successfully installed, all you need to do is run the
   - Each text box has its own trash button which is used for deleting its contents. If any text is in the textbox, clicking the trash button will delete said contents. If no text is present in the textbox, clicking the trash button will delete that textbox and update the Sequence List accordingly. 
 
 ### Theme Dropdown
-  - The defult theme for this application is your system's theme. However using the dropdown under the "Submit" button you can switch between the light or dark themes.
+  - The defult theme for this application is your system's theme. However, using the dropdown under the "Submit" button you can switch between the light or dark themes.
 
 ## Example Usage
 The following screenshots illustrate how to use CrossSeq using the 4 FASTA sequences provided in the [Testing Sequences](https://github.com/AhmetMuratAcar/CrossSeq/tree/master/Testing%20Sequences) folder.
