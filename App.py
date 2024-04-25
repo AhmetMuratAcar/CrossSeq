@@ -159,7 +159,7 @@ class ToolBar:
     @staticmethod
     def instruction_callback():
         """Opens README of GitHub repo."""
-        webbrowser.open_new("https://github.com/AhmetMuratAcar/DNA-Comparer/blob/master/README.md")
+        webbrowser.open_new("https://github.com/AhmetMuratAcar/CrossSeq/blob/master/README.md")
 
 
 class App:
@@ -167,7 +167,7 @@ class App:
 
     def __init__(self, master):
         self.root = master
-        self.root.title("DNA Comparer")
+        self.root.title("CrossSeq")
         self.frame_list = []
         self.count = len(self.frame_list) + 1
         self.pop_out_window = None
@@ -316,7 +316,7 @@ def submission():
 
 
 root = customtkinter.CTk()
-root.iconbitmap("Images/logo.ico")
+# root.iconbitmap("Images/logo.ico")
 root.geometry("1050x600")
 
 if __name__ == "__main__":

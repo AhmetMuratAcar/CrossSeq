@@ -1,4 +1,4 @@
-# DNA-Comparer
+# CrossSeq
 Visualization tool for DNA sequence comparisons.
 
 Push test rq.
