@@ -5,7 +5,7 @@
 </p>
 
 ## What is CrossSeq
-CrossSeq is a simple visualization tool for comparing and contrasting the CDNs of mRNA FASTA sequences. One main sequence is chosen and any number of comparison sequences can be added. These comparison sequences are then compared to the main sequence in both nucleotide and codon analysis. It is important to note that this comparison is done in a 1:1 fashion. Therefore, problems such as frameshift mutations are not taken into consideration.
+CrossSeq is a simple visualization tool for comparing and contrasting the coding regions of mRNA FASTA sequences. One main sequence is chosen and any number of comparison sequences can be added. These comparison sequences are then compared to the main sequence in both nucleotide and codon analysis. It is important to note that this comparison is done in a 1:1 fashion. Therefore, problems such as frameshift mutations are not taken into consideration.
 
 The resulting analysis yields 2 graphs and a markdown file containing the generated statistics per comparison sequence. 
 
