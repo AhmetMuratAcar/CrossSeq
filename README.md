@@ -56,3 +56,6 @@ This is what the generated Markdown file should look like:
 </p>
 
 *Note that this image only shows the results of the first comparison sequence.
+
+## Contributing
+This is currently a finished project but if there are any features you would like to see feel free to open a discussion. If you wish to implement the changes yourself feel free to fork this repo and open a pull request.
